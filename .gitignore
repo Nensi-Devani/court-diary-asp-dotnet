@@ -1,0 +1,7 @@
+# Visual Studio cache
+.vs/
+.idea/
+
+# Build results
+bin/
+obj/
