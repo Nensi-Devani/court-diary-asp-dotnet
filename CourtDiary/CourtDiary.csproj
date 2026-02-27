@@ -13,6 +13,7 @@
   <ItemGroup>
     <Folder Include="Controllers\Admin\" />
     <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Profile\" />
   </ItemGroup>
 
 </Project>
