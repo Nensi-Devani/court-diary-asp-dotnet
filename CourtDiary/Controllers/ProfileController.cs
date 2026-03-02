@@ -13,5 +13,10 @@ namespace CourtDiary.Controllers
         {
             return View();
         }
+
+        public IActionResult changepassword()
+        {
+            return View();
+        }
     }
 }
