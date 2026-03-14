@@ -1,0 +1,268 @@
+﻿@{
+    ViewData["Title"] = "Add Case";
+}
+
+<div class="container">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+
+                <!-- Page Title (Left Side) -->
+                <div class="col-sm-6">
+                    <h4 class="m-0">Add Case</h4>
+                </div>
+
+                <!-- Breadcrumb (Right Side) -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Cases</a></li>
+                        <li class="breadcrumb-item active">Add Case</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <form>
+
+        <!-- Case Details -->
+        <div class="card mx-4 mb-4">
+            <div class="card-body">
+
+                <h5><b>Case Details:</b></h5>
+
+                <div class="row mt-3">
+
+                    <div class="col-md-6 mb-3">
+                        <label>Case No</label>
+                        <input type="text" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Case Title</label>
+                        <input type="text" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Case First Hearing</label>
+                        <input type="date" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Case Next Hearing</label>
+                        <input type="date" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Previous Hearing</label>
+                        <input type="date" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Location</label>
+                        <input type="text" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Hearing Notes</label>
+<textarea class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Previous Hearing Summary</label>
+<textarea class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label>Case Description</label>
+<textarea class="form-control" rows="3"></textarea>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- Document Section -->
+        <div class="card mx-4 mb-4">
+            <div class="card-body">
+
+                <h5><b>Document:</b></h5>
+
+                <div class="row mt-3 align-items-center">
+
+                    <div class="col-md-6">
+                        <input type="file" class="form-control-file w-100">
+                    </div>
+
+                    <div class="col-md-6 text-md-right mt-2 mt-md-0">
+                        <button class="btn btn-primary btn-sm mr-2">Court</button>
+                        <button class="btn btn-danger btn-sm mr-2">Evidence</button>
+                        <button class="btn btn-warning btn-sm">Client</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- Opposite Party -->
+        <div class="card mx-4 mb-4">
+            <div class="card-body">
+
+                <h5><b>Opposite Party Details:</b></h5>
+
+                <div class="row mt-3">
+
+                    <div class="col-md-6 text-center">
+
+                        <img src="~/images/user.jpg" width="90" class="img-circle mb-2">
+
+                        <br>
+
+                        <input type="file" id="party" class="d-none">
+                        <label for="party" class="btn btn-secondary btn-sm">Choose</label>
+
+                        <input type="text" class="form-control mt-2" placeholder="Opposite Party Name">
+
+<textarea class="form-control mt-2" rows="2" placeholder="Other Notes"></textarea>
+
+                    </div>
+
+
+                    <div class="col-md-6 text-center">
+
+                        <img src="~/images/user.jpg" width="90" class="img-circle mb-2">
+
+                        <br>
+
+                        <input type="file" id="lawyer" class="d-none">
+                        <label for="lawyer" class="btn btn-secondary btn-sm">Choose</label>
+
+                        <input type="text" class="form-control mt-2" placeholder="Opposite Party Lawyer Name">
+
+<textarea class="form-control mt-2" rows="2" placeholder="Other Notes"></textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- Client Details -->
+        <div class="card mx-4 mb-4">
+            <div class="card-body">
+
+                <h5><b>Client Details:</b></h5>
+
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#clientModal">
+                    Choose Client
+                </button>
+
+            </div>
+        </div>
+
+
+        <!-- Client Modal -->
+        <div class="modal fade" id="clientModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h5 class="modal-title">Select Client</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <div class="modal-body p-0" style="max-height:400px; overflow-y:auto;">
+
+                        <table class="table table-striped w-100 text-center">
+
+                            <thead>
+                                <tr>
+                                    <th>Sr No</th>
+                                    <th>Client</th>
+                                    <th>Client Name</th>
+                                    <th>Mobile</th>
+                                    <th>Active Cases</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <tr>
+
+                                        <td>@i</td>
+
+                                        <td>
+                                            <img src="~/images/user.jpg" style="width:40px;height:40px;border-radius:10%;">
+                                        </td>
+
+                                        <td>John Doe</td>
+
+                                        <td>9876543210</td>
+
+                                        <td>
+                                            <span class="badge bg-success">3</span>
+                                        </td>
+
+                                        <td>
+
+                                            <button class="btn btn-sm btn-info">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+
+                                            <button class="btn btn-sm btn-warning">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+
+                                            <button class="btn btn-sm btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+
+                                        </td>
+
+                                    </tr>
+                                }
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+
+                        <button class="btn btn-secondary" data-dismiss="modal">
+                            Close
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Submit Button -->
+        <div class="text-center mb-4">
+
+            <button type="submit" class="btn btn-primary px-4">
+                Add
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
