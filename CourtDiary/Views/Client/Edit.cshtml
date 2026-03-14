@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewData["Title"] = "Edit Client";
+}
+
+<div class="container">
+    <h4 class="pt-2 py-2 mx-4">Edit Client</h4>
+
+    <div class="card mx-4">
+        <div class="card-body">
+            <form>
+
+                <div class="text-center">
+                    <img src="~/images/user.jpg" class="image-fluid img-circle" style="width:125px;" alt="User">
+                </div>
+
+                <div class="text-center mt-2">
+                    <input type="file" name="avatar" id="avatar" class="d-none" />
+                    <label for="avatar" class="btn btn-secondary btn-sm px-3">Choose</label>
+                </div>
+
+                <div class="row mx-1 my-2">
+
+                    <!-- Client Name -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Client Name</label>
+                        <input type="text" class="form-control" value="John Doe">
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Phone</label>
+                        <input type="text" class="form-control" value="9876543210">
+                    </div>
+
+                    <!-- Address -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Address</label>
+                        <textarea class="form-control" rows="3">New York Street</textarea>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" rows="3">Regular Client</textarea>
+                    </div>
+
+                </div>
+
+                <!-- Buttons -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary fs-5 px-4">
+                        Update
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
