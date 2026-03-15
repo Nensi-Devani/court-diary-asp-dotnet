@@ -9,12 +9,12 @@ namespace CourtDiary.Controllers
             return View();
         }
 
-        public IActionResult edit()
+        public IActionResult Edit()
         {
             return View();
         }
 
-        public IActionResult changepassword()
+        public IActionResult Changepassword()
         {
             return View();
         }
