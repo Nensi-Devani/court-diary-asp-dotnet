@@ -1,56 +1,19 @@
 ﻿
 @{
-    ViewData["Title"] = "index";
+    ViewData["Title"] = "Index";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>User Profile</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-    <style>
-        body {
-            background-color: #f4f6f9;
-        }
-
-        .profile-card {
-            max-width: 400px;
-            margin: 40px auto;
-        }
-
-        .profile-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-top: -50px;
-            border: 3px solid #fff;
-        }
-
-        .header-bg {
-            height: 60px;
-            background: #007bff;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-
+<div class="container py-2">
         <!-- Profile Card -->
-        <div class="card profile-card shadow">
-            <div class="header-bg"></div>
-            <div class="card-body text-center">
-                <img src="~/images/user.jpg" class="profile-img" alt="User">
+    <div class="card shadow mx-auto" style="max-width:400px">
+
+        <div class="bg-primary rounded " style="height:60px"></div>
+
+        <div class="card-body text-center">
+
+            <img src="~/images/user.jpg"
+                 alt="User"
+                 style="width:100px; height:100px; border-radius:50%; margin-top:-50px; border:3px solid #fff;">
 
                 <h4 class="mt-3">Nina Mcintire</h4>
                 <p class="text-muted">Criminal Lawyer</p>
@@ -73,10 +36,11 @@
         </div>
 
         <!-- About Me -->
-        <div class="card profile-card shadow mt-4">
-            <div class="card-header bg-primary text-white">
-                Office Details
-            </div>
+    <div class="card shadow mt-4" style="max-width:400px; margin:40px auto;">
+
+        <div class="card-header bg-primary text-white">
+            Office Details
+        </div>
             <div class="card-body">
                 <p><i class="fas fa-phone mr-1"></i> <b>Office Contact</b></p><p>+91 3456796845</p>
                 <hr>
@@ -86,8 +50,4 @@
             </div>
         </div>
 
-    </div>
-
-</body>
-</html>
-
+</div>
