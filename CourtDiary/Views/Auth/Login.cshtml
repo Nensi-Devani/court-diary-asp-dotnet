@@ -32,7 +32,7 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
 
-                <form action="../../index3.html" method="post">
+                <form asp-controller="Auth" asp-action="Login" method="post">
                     <div class="input-group mb-3">
                         <input type="email" class="form-control" placeholder="Email">
                         <div class="input-group-append">
@@ -59,7 +59,9 @@
                             </div>
                         </div>
                         <div class="col-12 mt-3">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Sign In
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -73,10 +75,12 @@
                 <!-- /.social-auth-links -->
 
                 <p class="mb-1">
-                    <a href="forgot-password.html">I forgot my password</a>
+                    <a href="/Auth/ForgotPassword">
+                        I forgot my password
+                    </a>
                 </p>
                 <p class="mb-0">
-                    <a href="register.html" class="text-center">Register a new membership</a>
+                    <a href="/Auth/SignUp" class="text-center">Register a new membership</a>
                 </p>
             </div>
             <!-- /.login-card-body -->
