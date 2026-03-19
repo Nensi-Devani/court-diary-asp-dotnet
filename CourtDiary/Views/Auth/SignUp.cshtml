@@ -36,7 +36,7 @@
             <div class="card-body register-card-body">
                 <p class="login-box-msg">Register a new membership</p>
 
-                <form asp-action="Register" method="post">
+                <form asp-controller="Auth" asp-action="SignUp" method="post">
 
                     <!-- Full Name -->
                     <div class="input-group mb-3">
@@ -96,7 +96,9 @@
                         </div>
                     </div> *@
                         <div class="col-12 mt-3">
-                            <button type="submit" class="btn btn-primary btn-block">Register</button>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Register
+                            </button>
                         </div>
                     </div>
 
