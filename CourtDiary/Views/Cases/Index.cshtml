@@ -29,10 +29,11 @@
 
                             </div>
 
-                            <button class="btn btn-primary btn-add"
-                                    style="height:30px; padding:0 10px; font-size:14px;">
-                                <i class="fas fa-plus"></i> Add New
-                            </button>
+                        <a asp-controller="Cases" asp-action="Create"
+                           class="btn btn-primary btn-add"
+                           style="height:30px; padding:0 10px; font-size:14px;">
+                            <i class="fas fa-plus"></i> Add New
+                        </a>
 
                         </div>
 
@@ -88,13 +89,13 @@
 
                                             <td>
 
-                                                <button class="btn btn-sm btn-info">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
+                                        <a asp-controller="Cases" asp-action="Viewdetails" class="btn btn-sm btn-info">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
 
-                                                <button class="btn btn-sm btn-warning">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
+                                        <a asp-controller="Cases" asp-action="Edit" class="btn btn-sm btn-warning">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
 
                                                 <button class="btn btn-sm btn-danger">
                                                     <i class="fas fa-trash"></i>
