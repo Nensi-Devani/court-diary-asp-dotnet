@@ -1,0 +1,121 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<!-- Page Header -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Dashboard</h1>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+
+        <!-- Top Boxes -->
+        <div class="row">
+
+            <div class="col-lg-3 col-6">
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>150</h3>
+                        <p>Total Active Case</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">View All <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>53</h3>
+                        <p>Today Hearing</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">View All <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>44</h3>
+                        <p>Today Meeting</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">View All <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3>6</h3>
+                        <p>Pending Payments</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">View All <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Chart + Calendar -->
+        <div class="row">
+
+            <!-- Chart -->
+            <section class="col-lg-7">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-chart-area"></i> Case Analysis
+                        </h3>
+                    </div>
+
+                    <div class="card-body">
+                        <canvas id="caseChart" height="250"></canvas>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- Calendar -->
+            <section class="col-lg-5">
+
+                <div class="card bg-success">
+
+                    <div class="card-header border-0">
+                        <h3 class="card-title">
+                            <i class="far fa-calendar-alt"></i>
+                            Calendar
+                        </h3>
+                    </div>
+
+                    <div class="card-body pt-0">
+                        <div id="calendar" style="width:100%"></div>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </div>
+</section>
