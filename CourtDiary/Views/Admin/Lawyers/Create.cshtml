@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewData["Title"] = " lawyer Create";
+}
+
+<div class="container">
+
+    <!-- Header -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+
+                <div class="col-sm-6">
+                    <h4 class="mx-4">Add Lawyer</h4>
+                </div>
+
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Lawyer</a></li>
+                        <li class="breadcrumb-item active">Add Lawyer</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Form -->
+    <form>
+        <div class="card mx-4">
+            <div class="card-body">
+
+                <!-- Profile Image -->
+                <div class="text-center">
+                    <img src="~/images/user.jpg" class="img-fluid img-circle" style="width:125px;" alt="User">
+                </div>
+
+                <!-- Upload Button -->
+                <div class="text-center mt-2">
+                    <input type="file" name="avatar" id="avatar" class="d-none" />
+                    <label for="avatar" class="btn btn-secondary btn-sm px-3">Choose</label>
+                </div>
+
+                <!-- Form Fields -->
+                <div class="row mx-1 my-4">
+
+                    <!-- Lawyer Name -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Lawyer Name</label>
+                        <input type="text" class="form-control" placeholder="Enter lawyer name">
+                    </div>
+
+                    <!-- Mobile No -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Mobile No.</label>
+                        <input type="text" class="form-control" placeholder="Enter mobile number">
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" placeholder="Enter email">
+                    </div>
+
+                    <!-- Office Email -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Office Email</label>
+                        <input type="email" class="form-control" placeholder="Enter office email">
+                    </div>
+
+                    <!-- Office Contact No -->
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Office Contact No.</label>
+                        <input type="text" class="form-control" placeholder="Enter office contact number">
+                    </div>
+
+                    <!-- Office Address -->
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Office Address</label>
+                        <textarea class="form-control" rows="4" placeholder="Enter office address"></textarea>
+                    </div>
+
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary fs-5 px-4">
+                        Add
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+</div>
+
