@@ -106,31 +106,30 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Define static role as user -->
             @{
-                int userRole = 1;   // STATIC ROLE 
+                string role = Context.Session.GetString("UserRole");
             }
 
 
-          @if (userRole == 0)
+          @if (role == "Admin")
           {
             <li class="nav-item">
-                <a href="pages/calendar.html" class="nav-link">
+                <a asp-controller="Dashboard" asp-action="Index" class="nav-link">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
-                     <p>
-                        Dashboard
-                     </p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="pages/calendar.html" class="nav-link">
-                    <i class="nav-icon far fa-calendar-alt"></i>
                     <p>
-                        Meetings
-                        <span class="badge badge-info right">2</span>
+                        Dashboard
                     </p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="pages/calendar.html" class="nav-link">
+                <a asp-controller="Lawyers" asp-action="Index" class="nav-link">
+                    <i class="nav-icon fas fa-graduation-cap"></i>
+                    <p>
+                        Lawyers
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a asp-controller="Cases" asp-action="Index" class="nav-link">
                     <i class="nav-icon fas fa-file"></i>
                     <p>
                         Cases
@@ -138,47 +137,48 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="pages/calendar.html" class="nav-link">
+                <a asp-controller="Clients" asp-action="Index" class="nav-link">
                     <i class="nav-icon fas fa-users"></i>
                     <p>
                         Clients
                     </p>
                 </a>
-            </li>         
+            </li>
             }
             else{
-            <li class="nav-item">
-                <a href="pages/calendar.html" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                     <p>
-                        Dashboard
-                     </p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="pages/calendar.html" class="nav-link">
-                    <i class="nav-icon fas fa-graduation-cap"></i>
-                     <p>
-                        Lawyers
-                     </p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="pages/calendar.html" class="nav-link">
-                    <i class="nav-icon fas fa-file"></i>
-                    <p>
-                        Cases
-                    </p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="pages/calendar.html" class="nav-link">
-                    <i class="nav-icon fas fa-users"></i>
-                    <p>
-                        Clients
-                    </p>
-                </a>
-            </li> 
+                <li class="nav-item">
+                    <a asp-controller="Dashboard" asp-action="Index" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p> 
+                            Dashboard
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Meetings" asp-action="Index" class="nav-link">
+                        <i class="nav-icon far fa-calendar-alt"></i>
+                        <p>
+                            Meetings
+                            <span class="badge badge-info right">2</span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Cases" asp-action="Index" class="nav-link">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p>
+                            Cases
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Clients" asp-action="Index" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Clients
+                        </p>
+                    </a>
+                </li>
             }
 
         </ul>
