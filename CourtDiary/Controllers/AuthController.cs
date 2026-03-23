@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 namespace CourtDiary.Controllers
 {
@@ -9,11 +10,22 @@ namespace CourtDiary.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Login(string FullName, string Email, string Password, string ConfirmPassword)
+        public IActionResult Login(string Email, string Password)
         {
             // (optional: save data)
+            if (Email == "ndevani894@rku.ac.in")
+            {
+                HttpContext.Session.SetString("UserRole", "Admin");
+            }
+            else
+            {
+                HttpContext.Session.SetString("UserRole", "User");
+            }
 
-            return RedirectToAction("Index", "Dashboard"); // ✅ go to dashboard
+            HttpContext.Session.SetString("UserEmail", Email);
+
+            return RedirectToAction("Index", "Dashboard");
+            //return RedirectToAction("Index", "Dashboard"); // ✅ go to dashboard
         }
 
         public IActionResult SignUp()
