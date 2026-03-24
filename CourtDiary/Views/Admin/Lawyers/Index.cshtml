@@ -29,11 +29,9 @@
 
                         </div>
 
-                        <button class="btn btn-primary btn-add"
-                                style="height:30px; padding:0 10px; font-size:14px;"
-                                onclick="location.href='@Url.Action("Create", "Lawyers")'">
+                        <a class="btn btn-primary btn-sm" asp-controller="Lawyers" asp-action="Create">
                             <i class="fas fa-plus"></i> Add New
-                        </button>
+                        </a>
 
                     </div>
 
@@ -75,9 +73,9 @@
                                     <td>
 
                                         <!-- Meeting Button -->
-                                        <button class="btn btn-sm btn-primary">
+                                        <a asp-controller="Meetings" asp-action="Index" class="btn btn-sm btn-primary">
                                             <i class="fas fa-calendar"></i>
-                                        </button>
+                                        </a>
 
                                         <!-- view Button -->
                                         <a asp-controller="Lawyers" asp-action="Viewlawyer" class="btn btn-sm btn-info">
