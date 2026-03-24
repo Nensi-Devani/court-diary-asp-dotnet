@@ -1,0 +1,224 @@
+﻿@{
+    ViewData["Title"] = "Viewdetails";
+}
+
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+
+                <div class="col-sm-6">
+                    <h4 class="m-0">View Case</h4>
+                </div>
+
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a asp-controller="Cases" asp-action="Index">Cases</a></li>
+                        <li class="breadcrumb-item active">View Case</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Case Details -->
+    <div class="card mx-4 mb-4">
+        <div class="card-body">
+
+            <h5><b>Case Details:</b></h5>
+
+            <div class="row mt-3">
+
+                <div class="col-md-6 mb-3">
+                    <label>Case No</label>
+                    <p class="form-control">35670158</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Case Title</label>
+                    <p class="form-control">Property</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Case First Hearing</label>
+                    <p class="form-control">2020-01-09</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Case Next Hearing</label>
+                    <p class="form-control">2020-01-12</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Previous Hearing</label>
+                    <p class="form-control">2020-01-08</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Location</label>
+                    <p class="form-control">Mumbai District Civil Court</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Hearing Notes</label>
+                    <p class="form-control">
+                        Both parties were present. Court requested property documents.
+                    </p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label>Previous Hearing Summary</label>
+                    <p class="form-control">
+                        Defendant requested additional time to submit statement.
+                    </p>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <label>Case Description</label>
+                    <p class="form-control">
+                        This case relates to a property ownership dispute.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Document Section -->
+    <div class="card mx-4 mb-4">
+        <div class="card-body">
+
+            <h5><b>Document:</b></h5>
+
+            <div class="row mt-3 align-items-center">
+
+                <!-- PDF Files -->
+                <div class="col-md-6 d-flex">
+
+                    <div class="text-center mr-3">
+                        <i class="fas fa-file-pdf fa-3x text-secondary"></i>
+                    </div>
+
+                    <div class="text-center mr-3">
+                        <i class="fas fa-file-pdf fa-3x text-secondary"></i>
+                    </div>
+
+                    <div class="text-center mr-3">
+                        <i class="fas fa-file-pdf fa-3x text-secondary"></i>
+                    </div>
+
+                </div>
+
+                <!-- Buttons -->
+                <div class="col-md-6 text-md-right">
+                    <button class="btn btn-primary btn-sm mr-2">Court</button>
+                    <button class="btn btn-danger btn-sm mr-2">Evidence</button>
+                    <button class="btn btn-warning btn-sm">Client</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Lawyer and Client Details -->
+    <div class="card mx-4 mb-4">
+        <div class="card-body">
+
+            <div class="row">
+
+                <!-- Lawyer Details -->
+                <div class="col-md-6">
+                    <h5><b>Lawyer Details:</b></h5>
+
+                    <div class="text-center my-3">
+                        <img src="~/images/user.jpg" width="90" class="img-circle">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Lawyer Name</label>
+                        <p class="form-control">Amit Verma</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Mobile No</label>
+                        <p class="form-control">+91 9876543210</p>
+                    </div>
+                </div>
+
+                <!-- Client Details -->
+                <div class="col-md-6">
+                    <h5><b>Client Details:</b></h5>
+
+                    <div class="text-center my-3">
+                        <img src="~/images/user.jpg" width="90" class="img-circle">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Client Name</label>
+                        <p class="form-control">Amit Verma</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Mobile No</label>
+                        <p class="form-control">+91 9876543210</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Opposite Party Details -->
+    <div class="card mx-4 mb-4">
+        <div class="card-body">
+
+            <h5><b>Opposite Party Details:</b></h5>
+
+            <div class="row mt-4">
+
+                <!-- Opposite Party -->
+                <div class="col-md-6">
+                    <div class="text-center mb-3">
+                        <img src="~/images/user.jpg" width="90" class="img-circle">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Opposite Party Name</label>
+                        <p class="form-control">Amit Verma</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Other Notes (Opp. party)</label>
+                        <p class="form-control">
+                            Defendant claims ancestral ownership of the disputed property.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Opposite Party Lawyer -->
+                <div class="col-md-6">
+                    <div class="text-center mb-3">
+                        <img src="~/images/user.jpg" width="90" class="img-circle">
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Opposite Party's Lawyer Name</label>
+                        <p class="form-control">Adv. Neeraj Kulkarni</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Other Notes (Lawyer)</label>
+                        <p class="form-control">
+                            Opposite counsel requested adjournment in last hearing.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+

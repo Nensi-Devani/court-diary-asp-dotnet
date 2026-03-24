@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewData["Title"] = " Admin cases Index";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+
+            <div class="card">
+
+                <!-- Card Header -->
+
+                <div class="card-header" style="display:flex; align-items:center;">
+
+                    <h3 class="card-title">Cases</h3>
+
+                    <div class="card-tools" style="margin-left:auto; display:flex; align-items:center; gap:10px;">
+
+                        <!-- Search -->
+
+                        <div class="search-box" style="position:relative; width:180px;">
+
+                            <i class="fas fa-search"
+                               style="position:absolute; top:50%; left:8px; transform:translateY(-50%); color:#6c757d; font-size:14px;"></i>
+
+                            <input type="text" placeholder="Search"
+                                   style="width:100%; height:30px; padding-left:30px; border:1px solid #ced4da; border-radius:5px; font-size:14px;">
+
+                        </div>
+
+                        <a asp-controller="Cases" asp-action="Create"
+                           class="btn btn-primary btn-sm">
+                            <i class="fas fa-plus"></i> Add New
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <!-- Card Body -->
+
+                <div class="card-body table-responsive" style="overflow-x:auto;">
+
+                    <table class="table table-striped text-center" style="white-space:nowrap;">
+
+                        <thead>
+                            <tr>
+                                <th>Sr No</th>
+                                <th>Lawyer</th>
+                                <th>Lawyer Name</th>
+                                <th>Case No</th>
+                                <th>Title</th>
+                                <th>Location</th>
+                                <th>Client</th>
+                                <th>Opp.Lawyer</th>
+                                <th>Next Hearing</th>
+                                <th>Uploaded Docs</th>
+                                <th>Payment Status</th>
+                                <th>Case Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @for (int i = 1; i <= 5; i++)
+                            {
+
+                                <tr>
+                                    <td>@i</td>
+
+                                    <td>
+                                        <img src="~/images/user.jpg"
+                                             class="profile-img"
+                                             style="width:40px; height:40px; border-radius:10%;">
+                                    </td>
+
+                                    <td>John Doe</td>
+                                    <td>98765</td>
+                                    <td>Cyber Fraud</td>
+                                    <td>Rajkot, Gujarat</td>
+                                    <td>Rohan Mehta</td>
+                                    <td>Adv.Amit Kapoor</td>
+                                    <td>15-10-2024</td>
+
+                                    <td><span class="badge bg-secondary">3</span></td>
+                                    <td><span class="badge bg-success">Paid</span></td>
+                                    <td><span class="badge bg-success">Active</span></td>
+
+                                    <td>
+
+                                        <a asp-controller="Cases" asp-action="Viewdetails" class="btn btn-sm btn-info">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+
+                                        <a asp-controller="Cases" asp-action="Edit" class="btn btn-sm btn-warning">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+
+                                        <button class="btn btn-sm btn-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
