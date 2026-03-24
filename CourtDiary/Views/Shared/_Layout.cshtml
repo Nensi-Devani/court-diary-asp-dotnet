@@ -107,13 +107,17 @@
           <!-- Define static role as user -->
             @{
                 string role = Context.Session.GetString("UserRole");
+
+                // for active tab
+                var currentController = ViewContext.RouteData.Values["Controller"]?.ToString();
+                var currentAction = ViewContext.RouteData.Values["Action"]?.ToString();
             }
 
 
           @if (role == "Admin")
           {
             <li class="nav-item">
-                <a asp-controller="Dashboard" asp-action="Index" class="nav-link">
+                <a asp-controller="Dashboard" asp-action="Index" class="nav-link nav-link @(currentController == "Dashboard" ? "bg-primary text-white" : "")">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
                         Dashboard
@@ -121,7 +125,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a asp-controller="Lawyers" asp-action="Index" class="nav-link">
+                <a asp-controller="Lawyers" asp-action="Index" class="nav-link @(currentController == "Lawyers" ? "bg-primary text-white" : "")">
                     <i class="nav-icon fas fa-graduation-cap"></i>
                     <p>
                         Lawyers
@@ -129,7 +133,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a asp-controller="Cases" asp-action="Index" class="nav-link">
+                <a asp-controller="Cases" asp-action="Index" class="nav-link @(currentController == "Cases" ? "bg-primary text-white" : "")">
                     <i class="nav-icon fas fa-file"></i>
                     <p>
                         Cases
@@ -137,7 +141,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a asp-controller="Clients" asp-action="Index" class="nav-link">
+                <a asp-controller="Clients" asp-action="Index" class="nav-link @(currentController == "Clients" ? "bg-primary text-white" : "")">
                     <i class="nav-icon fas fa-users"></i>
                     <p>
                         Clients
@@ -147,7 +151,7 @@
             }
             else{
                 <li class="nav-item">
-                    <a asp-controller="Dashboard" asp-action="Index" class="nav-link">
+                    <a asp-controller="Dashboard" asp-action="Index" class="nav-link @(currentController == "Dashboard" ? "bg-primary text-white" : "")">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p> 
                             Dashboard
@@ -155,7 +159,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a asp-controller="Meetings" asp-action="Index" class="nav-link">
+                    <a asp-controller="Meetings" asp-action="Index" class="nav-link @(currentController == "Meetings" ? "bg-primary text-white" : "")">
                         <i class="nav-icon far fa-calendar-alt"></i>
                         <p>
                             Meetings
@@ -164,7 +168,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a asp-controller="Cases" asp-action="Index" class="nav-link">
+                        <a asp-controller="Cases" asp-action="Index" class="nav-link @(currentController == "Cases" ? "bg-primary text-white" : "")">
                         <i class="nav-icon fas fa-file"></i>
                         <p>
                             Cases
@@ -172,7 +176,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a asp-controller="Clients" asp-action="Index" class="nav-link">
+                    <a asp-controller="Clients" asp-action="Index" class="nav-link @(currentController == "Clients" ? "bg-primary text-white" : "")">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Clients
