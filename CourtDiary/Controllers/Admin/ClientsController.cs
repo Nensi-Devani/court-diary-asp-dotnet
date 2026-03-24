@@ -8,22 +8,22 @@ namespace CourtDiary.Controllers.Admin
     {
         public IActionResult Index()
         {
-            return View("~/Views/Admin/Client/Index.cshtml");
+            return View("~/Views/Admin/Clients/Index.cshtml");
         }
 
         public IActionResult Edit()
         {
-            return View("~/Views/Admin/Client/Edit.cshtml");
+            return View("~/Views/Admin/Clients/Edit.cshtml");
         }
 
         public IActionResult Create()
         {
-            return View("~/Views/Admin/Client/Create.cshtml");
+            return View("~/Views/Admin/Clients/Create.cshtml");
         }
 
         public IActionResult Viewdetails()
         {
-            return View("~/Views/Admin/Client/Viewdetails.cshtml");
+            return View("~/Views/Admin/Clients/Viewdetails.cshtml");
         }
     }
 }
