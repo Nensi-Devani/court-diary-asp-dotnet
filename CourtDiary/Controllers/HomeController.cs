@@ -8,11 +8,14 @@ namespace CourtDiary.Controllers
     {
         public IActionResult Index()
         {
+            var email = HttpContext.Session.GetString("UserEmail");
+
+            if (string.IsNullOrEmpty(email))
+            {
+                return RedirectToAction("Login", "Auth");
+            }
             return View();
         }
-
-      
-
 
         public IActionResult Privacy()
         {
