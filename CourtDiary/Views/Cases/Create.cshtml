@@ -1,5 +1,6 @@
-﻿@{
-    ViewData["Title"] = "Add Case";
+@model CourtDiary.Models.Case
+@{
+ViewData["Title"] = "Add Case";
 }
 
 <div class="container-fluid">
@@ -23,7 +24,8 @@
             </div>
         </div>
     </div>
-    <form>
+    <form action="/Cases/Create" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="client_id" id="client_id" value="">
 
         <!-- Case Details -->
         <div class="card mx-4 mb-4">
@@ -33,49 +35,59 @@
 
                 <div class="row mt-3">
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col ">
                         <label>Case No</label>
-                        <input type="text" class="form-control">
+                        <input type="text" name="case_no" class="form-control">
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-5 mb-3">
                         <label>Case Title</label>
-                        <input type="text" class="form-control">
+                        <input type="text" name="title" class="form-control">
                     </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label>Status</label>
+                        <select name="status" class="form-control">
+                            <option value="Active">Active</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Closed">Closed</option>
+                        </select>
+                    </div>
+
 
                     <div class="col-md-6 mb-3">
                         <label>Case First Hearing</label>
-                        <input type="date" class="form-control">
+                        <input type="date" class="form-control" name="firstHearingDate">
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label>Case Next Hearing</label>
-                        <input type="date" class="form-control">
+                        <input type="date" class="form-control" name="nextHearingDate">
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label>Previous Hearing</label>
-                        <input type="date" class="form-control">
+                        <input type="date" class="form-control" name="previousHearingDate">
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label>Location</label>
-                        <input type="text" class="form-control">
+                        <input type="text" name="location" class="form-control">
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label>Hearing Notes</label>
-<textarea class="form-control" rows="3"></textarea>
+<textarea class="form-control" name="hearing_notes" rows="3"></textarea>
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label>Previous Hearing Summary</label>
-<textarea class="form-control" rows="3"></textarea>
+<textarea class="form-control" name="previous_hearing_summary" rows="3"></textarea>
                     </div>
 
                     <div class="col-md-12 mb-3">
                         <label>Case Description</label>
-<textarea class="form-control" rows="3"></textarea>
+<textarea class="form-control" name="description" rows="3"></textarea>
                     </div>
 
                 </div>
@@ -93,13 +105,15 @@
                 <div class="row mt-3 align-items-center">
 
                     <div class="col-md-6">
-                        <input type="file" class="form-control-file w-100">
+                        <input type="file" name="uploadedFiles" class="form-control-file w-100" multiple>
                     </div>
 
                     <div class="col-md-6 text-md-right mt-2 mt-md-0">
-                        <button class="btn btn-primary btn-sm mr-2">Court</button>
-                        <button class="btn btn-danger btn-sm mr-2">Evidence</button>
-                        <button class="btn btn-warning btn-sm">Client</button>
+                        <select name="docCategory" class="form-control d-inline-block w-auto">
+                            <option value="1">Court</option>
+                            <option value="2">Evidence</option>
+                            <option value="3">Client</option>
+                        </select>
                     </div>
 
                 </div>
@@ -120,20 +134,20 @@
                     <!-- Opposite Party -->
                     <div class="col-md-6 text-center">
 
-                        <img src="~/images/user.jpg" width="90" class="img-circle mb-2">
+                        <img src="~/images/user.jpg" id="oppPartyImgPreview" width="90" class="img-circle mb-2">
 
                         <br>
 
-                        <input type="file" id="party" class="d-none">
+                        <input type="file" id="party" name="oppPartyAvatarFile" class="d-none" onchange="document.getElementById('oppPartyImgPreview').src = window.URL.createObjectURL(this.files[0])">
                         <label for="party" class="btn btn-secondary btn-sm">Choose</label>
 
                         <div class="mt-3 text-left">
 
                             <label>Opposite Party Name</label>
-                            <input type="text" class="form-control">
+                            <input type="text" name="oppPartyName" class="form-control">
 
                             <label class="mt-2">Other Notes (Opp. party)</label>
-<textarea class="form-control" rows="2"></textarea>
+                            <textarea class="form-control" name="oppPartyNotes" rows="2"></textarea>
 
                         </div>
 
@@ -143,20 +157,20 @@
                     <!-- Opposite Party Lawyer -->
                     <div class="col-md-6 text-center">
 
-                        <img src="~/images/user.jpg" width="90" class="img-circle mb-2">
+                        <img src="~/images/user.jpg" id="oppLawyerImgPreview" width="90" class="img-circle mb-2">
 
                         <br>
 
-                        <input type="file" id="lawyer" class="d-none">
+                        <input type="file" id="lawyer" name="oppLawyerAvatarFile" class="d-none" onchange="document.getElementById('oppLawyerImgPreview').src = window.URL.createObjectURL(this.files[0])">
                         <label for="lawyer" class="btn btn-secondary btn-sm">Choose</label>
 
                         <div class="mt-3 text-left">
 
                             <label>Opposite Party's Lawyer Name</label>
-                            <input type="text" class="form-control">
+                            <input type="text" name="oppLawyerName" class="form-control">
 
                             <label class="mt-2">Other Notes (Lawyer)</label>
-<textarea class="form-control" rows="2"></textarea>
+                            <textarea class="form-control" name="oppLawyerNotes" rows="2"></textarea>
 
                         </div>
 
@@ -174,7 +188,33 @@
 
                 <h5><b>Client Details:</b></h5>
 
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#clientModal">
+                <div class="row mt-3">
+                    <!-- Left Side -->
+                    <div class="col-md-6">
+                        <div class="text-center mb-3">
+                            <img src="~/images/user.jpg" id="clientDetailsAvatar" class="img-circle elevation-2" width="100">
+                        </div>
+                        <label>Client Name</label>
+                        <input type="text" class="form-control" id="clientDetailsName" readonly>
+
+                        <label class="mt-3">Other Notes</label>
+                        <textarea class="form-control" id="clientDetailsNotes" rows="3" readonly></textarea>
+                    </div>
+
+                    <!-- Right Side -->
+                    <div class="col-md-6">
+                        <!-- Invisible space to align with image -->
+                        <div style="height:120px;"></div>
+
+                        <label>Mobile No</label>
+                        <input type="text" class="form-control" id="clientDetailsPhone" readonly>
+
+                        <label class="mt-3">Address</label>
+                        <textarea class="form-control" id="clientDetailsAddress" rows="3" readonly></textarea>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#clientModal">
                     Choose Client
                 </button>
 
@@ -211,41 +251,29 @@
 
                             <tbody>
 
-                                @for (int i = 1; i <= 5; i++)
+                                @if (ViewBag.Clients != null)
                                 {
-                                    <tr>
-
-                                        <td>@i</td>
-
-                                        <td>
-                                            <img src="~/images/user.jpg" style="width:40px;height:40px;border-radius:10%;">
-                                        </td>
-
-                                        <td>John Doe</td>
-
-                                        <td>9876543210</td>
-
-                                        <td>
-                                            <span class="badge bg-success">3</span>
-                                        </td>
-
-                                        <td>
-
-                                            <button class="btn btn-sm btn-info">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-
-                                            <button class="btn btn-sm btn-warning">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-
-                                            <button class="btn btn-sm btn-danger">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-
-                                        </td>
-
-                                    </tr>
+                                    int i = 1;
+                                    foreach (var client in ViewBag.Clients)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>
+                                                <img src="@(string.IsNullOrEmpty(client.avatar) ? (string.IsNullOrEmpty(client.ImagePath) ? "/images/user.jpg" : client.ImagePath) : client.avatar)" style="width:40px;height:40px;border-radius:10%;">
+                                            </td>
+                                            <td>@client.name</td>
+                                            <td>@client.phone</td>
+                                            <td>
+                                                <span class="badge bg-success">0</span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-primary" onclick="selectClient(@client.client_id)" data-dismiss="modal">
+                                                    Select
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
                                 }
 
                             </tbody>
@@ -280,3 +308,21 @@
     </form>
 
 </div>
+
+@section Scripts {
+    <script>
+        function selectClient(id) {
+            document.getElementById('client_id').value = id;
+            fetch('/Cases/GetClient/' + id)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('clientDetailsName').value = data.name;
+                    document.getElementById('clientDetailsPhone').value = data.phone;
+                    document.getElementById('clientDetailsNotes').value = data.description || '';
+                    document.getElementById('clientDetailsAddress').value = data.address;
+                    document.getElementById('clientDetailsAvatar').src = data.avatar;
+                })
+                .catch(error => console.error('Error fetching client details:', error));
+        }
+    </script>
+}

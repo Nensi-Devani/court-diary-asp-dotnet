@@ -1,4 +1,4 @@
-﻿
+@model CourtDiary.Models.Case
 @{
     ViewData["Title"] = "Viewdetails";
 }
@@ -37,52 +37,52 @@
 
                     <div class="col-md-6 mb-3">
                         <label>Case No</label>
-                        <input type="text" class="form-control" value="35670158">
+                        <input type="text" class="form-control" value="@Model?.case_no" readonly>
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label>Case Title</label>
-                        <input type="text" class="form-control" value="Property">
+                        <input type="text" class="form-control" value="@Model?.title" readonly>
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label>Case First Hearing</label>
-                        <input type="date" class="form-control" value="2020-01-09">
+                        <input type="date" class="form-control" value="2020-01-09" readonly>
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label>Case Next Hearing</label>
-                        <input type="date" class="form-control" value="2020-01-12">
+                        <input type="date" class="form-control" value="2020-01-12" readonly>
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label>Previous Hearing</label>
-                        <input type="date" class="form-control" value="2020-01-08">
+                        <input type="date" class="form-control" value="2020-01-08" readonly>
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label>Location</label>
-                        <input type="text" class="form-control" value="Mumbai District Civil Court">
+                        <input type="text" class="form-control" value="@Model?.location" readonly>
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label>Hearing Notes</label>
-<textarea class="form-control" rows="3">
-Both parties were present. Court requested property documents.
+<textarea class="form-control" rows="3" readonly>
+@Model?.hearing_notes
 </textarea>
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label>Previous Hearing Summary</label>
-<textarea class="form-control" rows="3">
-Defendant requested additional time to submit statement.
+<textarea class="form-control" rows="3" readonly>
+@Model?.previous_hearing_summary
 </textarea>
                     </div>
 
                     <div class="col-md-12 mb-3">
                         <label>Case Description</label>
-<textarea class="form-control" rows="3">
-This case relates to a property ownership dispute.
+<textarea class="form-control" rows="3" readonly>
+@Model?.description
 </textarea>
                     </div>
 
@@ -93,7 +93,6 @@ This case relates to a property ownership dispute.
 
 
         <!-- Document Section -->
-      
         <div class="card mx-4 mb-4">
             <div class="card-body">
 
@@ -101,39 +100,20 @@ This case relates to a property ownership dispute.
 
                 <div class="row mt-3 align-items-center">
 
-                    <!-- PDF Files -->
-                    <div class="col-md-6 d-flex">
-
-                        <div class="text-center mr-3 position-relative">
-
-                            <i class="fas fa-file-pdf fa-3x text-secondary"></i>
-
-                        </div>
-
-
-                        <div class="text-center mr-3 position-relative">
-
-                            <i class="fas fa-file-pdf fa-3x text-secondary"></i>
-
-                        </div>
-
-
-                        <div class="text-center mr-3 position-relative">
-
-                            <i class="fas fa-file-pdf fa-3x text-secondary"></i>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- Buttons -->
-                    <div class="col-md-6 text-md-right">
-
-                        <button class="btn btn-primary btn-sm mr-2">Court</button>
-                        <button class="btn btn-danger btn-sm mr-2">Evidence</button>
-                        <button class="btn btn-warning btn-sm">Client</button>
-
+                    <div class="col-md-12 mb-3">
+                        @if (Model?.Uploads != null && Model.Uploads.Count > 0)
+                        {
+                            <ul>
+                                @foreach (var upload in Model.Uploads)
+                                {
+                                    <li><a href="@upload.upload_url" target="_blank">View Document (Category: @upload.upload_category)</a></li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p>No documents uploaded.</p>
+                        }
                     </div>
 
                 </div>
@@ -149,22 +129,25 @@ This case relates to a property ownership dispute.
 
                 <h5><b>Opposite Party Details:</b></h5>
 
+                @{
+                    var oppParty = Model?.Case_Parties?.FirstOrDefault(p => p.type == "Opposite Party");
+                    var oppLawyer = Model?.Case_Parties?.FirstOrDefault(p => p.type == "Opposite Party Lawyer");
+                }
+
                 <div class="row mt-3">
 
                     <!-- Opposite Party -->
                     <div class="col-md-6">
 
                         <div class="text-center mb-3">
-                            <img src="~/images/user.jpg" width="100" class="img-circle">
+                            <img src="@(oppParty?.avatar ?? "/images/user.jpg")" width="100" class="img-circle">
                         </div>
 
                         <label>Opposite Party Name</label>
-                        <input type="text" class="form-control" value="Amit Verma">
+                        <input type="text" class="form-control" value="@oppParty?.name" readonly>
 
                         <label class="mt-3">Other Notes (Opp. party)</label>
-                        <textarea class="form-control" rows="3">
-Defendant claims ancestral ownership of the disputed property.
-</textarea>
+                        <textarea class="form-control" rows="3" readonly>@oppParty?.notes</textarea>
 
                     </div>
 
@@ -173,16 +156,14 @@ Defendant claims ancestral ownership of the disputed property.
                     <div class="col-md-6">
 
                         <div class="text-center mb-3">
-                            <img src="~/images/user.jpg" width="100" class="img-circle">
+                            <img src="@(oppLawyer?.avatar ?? "/images/user.jpg")" width="100" class="img-circle">
                         </div>
 
                         <label>Opposite Party's Lawyer Name</label>
-                        <input type="text" class="form-control" value="Adv. Neeraj Kulkarni">
+                        <input type="text" class="form-control" value="@oppLawyer?.name" readonly>
 
                         <label class="mt-3">Other Notes (Lawyer)</label>
-                        <textarea class="form-control" rows="3">
-Opposite counsel requested adjournment in last hearing.
-</textarea>
+                        <textarea class="form-control" rows="3" readonly>@oppLawyer?.notes</textarea>
 
                     </div>
 
@@ -206,16 +187,14 @@ Opposite counsel requested adjournment in last hearing.
 
                         <!-- Image Section -->
                         <div class="text-center mb-3">
-                            <img src="~/images/user.jpg" class="img-circle elevation-2" width="100">
+                            <img src="@(Model?.Client?.avatar ?? Model?.Client?.ImagePath ?? "/images/user.jpg")" class="img-circle elevation-2" width="100">
                         </div>
 
                         <label>Client Name</label>
-                        <input type="text" class="form-control" value="Amit Verma">
+                        <input type="text" class="form-control" value="@Model?.Client?.name" readonly>
 
                         <label class="mt-3">Other Notes</label>
-                        <textarea class="form-control" rows="3">
-Client provided original sale deed copy.
-</textarea>
+                        <textarea class="form-control" rows="3" readonly>@Model?.Client?.description</textarea>
 
                     </div>
 
@@ -227,13 +206,10 @@ Client provided original sale deed copy.
                         <div style="height:120px;"></div>
 
                         <label>Mobile No</label>
-                        <input type="text" class="form-control" value="+91 9876543210">
+                        <input type="text" class="form-control" value="@Model?.Client?.phone" readonly>
 
                         <label class="mt-3">Address</label>
-                        <textarea class="form-control" rows="3">
-Flat No 402, Shanti Residency,
-MG Road, Andheri East, Mumbai
-</textarea>
+                        <textarea class="form-control" rows="3" readonly>@Model?.Client?.address</textarea>
 
                     </div>
 
