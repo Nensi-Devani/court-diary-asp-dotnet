@@ -20,7 +20,7 @@ namespace CourtDiary.Models
 
         public bool is_varified { get; set; } = false;
 
-        public string avatar { get; set; }
+        public string? avatar { get; set; }  
 
         public string office_email { get; set; }
 
