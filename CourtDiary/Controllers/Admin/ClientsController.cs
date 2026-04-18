@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace CourtDiary.Controllers.Admin
 {
@@ -27,3 +26,45 @@ namespace CourtDiary.Controllers.Admin
         }
     }
 }
+
+//using Microsoft.AspNetCore.Mvc;
+
+//namespace CourtDiary.Controllers.Admin
+//{
+//    //[Area("Admin")]
+//    //[Route("Admin/[controller]/[action]")]
+//    public class ClientsController : Controller
+//    {
+//        // =======================
+//        // LIST CLIENTS
+//        // =======================
+//        public IActionResult Index()
+//        {
+//            return View(); // just show static view
+//        }
+
+//        // =======================
+//        // CREATE (GET)
+//        // =======================
+//        public IActionResult Create()
+//        {
+//            return View(); // just show static view
+//        }
+
+//        // =======================
+//        // EDIT (GET)
+//        // =======================
+//        public IActionResult Edit()
+//        {
+//            return View(); // just show static view
+//        }
+
+//        // =======================
+//        // VIEW DETAILS
+//        // =======================
+//        public IActionResult Viewdetails()
+//        {
+//            return View(); // just show static view
+//        }
+//    }
+//}
