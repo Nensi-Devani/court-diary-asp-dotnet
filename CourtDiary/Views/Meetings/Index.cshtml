@@ -1,4 +1,4 @@
-﻿
+
 
 @model IEnumerable<CourtDiary.Models.Meeting>
 
@@ -8,148 +8,99 @@
 }
 
 <style>
-    /* Lawyer Portal Premium Theme */
-    body {
-        font-family: 'Source Sans Pro', sans-serif;
-    }
-
+    /* Professional Lawyer Portal Theme - Matching Website Dashboard */
     .lawyer-board-container {
-        background: #f8f9fa;
-        padding-top: 25px;
-        padding-bottom: 25px;
+        background: #f4f6f9;
+        padding: 20px 10px;
         border-radius: 8px;
-        border-top: 4px solid #1a2b4c; /* Navy Blue */
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
 
     .meeting-card {
-        border-radius: 6px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-        border-left: 4px solid #d4af37; /* Gold/Bronze */
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        border-top: 3px solid #007bff; /* Primary Blue */
         background: #ffffff;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        margin-bottom: 15px;
+        transition: transform 0.2s ease;
     }
 
-        .meeting-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.12);
-        }
+    .meeting-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
 
     .timeline > div > .timeline-item {
-        margin-left: 24px;
-        margin-right: 15px;
+        margin-left: 35px;
+        margin-right: 10px;
         margin-top: 0;
-        padding: 0;
+        background: transparent;
+        border: none;
+        box-shadow: none;
     }
 
     .timeline > div > i {
-        width: 14px;
-        height: 14px;
-        font-size: 0px;
-        line-height: 14px;
-        left: 9px;
+        left: 14px;
+        width: 12px;
+        height: 12px;
+        font-size: 0;
+        background: #007bff !important;
+        border: 3px solid #fff;
+        box-shadow: 0 0 0 1px #007bff;
         top: 15px;
-        border: 3px solid #1a2b4c;
-        background: #fff !important;
-        box-shadow: 0 0 0 3px #f8f9fa;
     }
 
     .time-label > span {
-        background: transparent !important;
-        color: #1a2b4c !important;
-        font-family: 'Merriweather', 'Times New Roman', serif;
-        font-size: 0.95rem;
-        font-weight: 700;
-        padding: 0;
-        margin-left: 20px;
-        border-bottom: 1px solid #d4af37;
-        padding-bottom: 3px;
-    }
-
-    .timeline::before {
-        left: 15px;
-        border-radius: 0;
-        width: 2px;
-        background: #d2d6de;
+        background: #007bff !important;
+        color: #fff !important;
+        font-size: 0.85rem;
+        border-radius: 20px;
+        padding: 4px 12px;
+        font-weight: 600;
+        box-shadow: 0 2px 4px rgba(0,123,255,0.2);
     }
 
     .timeline-header {
-        border-bottom: 1px solid #f0f0f0 !important;
-        font-size: 1.05rem;
-        font-family: 'Merriweather', 'Times New Roman', serif;
-        font-weight: 700;
-        padding: 12px 15px;
-        color: #1a2b4c;
+        border-bottom: 1px solid #f4f4f4 !important;
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 10px 15px;
+        color: #333;
     }
 
     .timeline-body {
         padding: 10px 15px;
-        color: #4a5568;
-        font-size: 0.9rem;
-        line-height: 1.4;
+        color: #555;
+        font-size: 0.88rem;
     }
 
     .timeline-footer {
-        padding: 10px 15px;
-        background-color: #fafbfc;
-        border-top: 1px solid #f0f0f0;
+        padding: 8px 15px;
+        background-color: #fcfcfc;
+        border-top: 1px solid #f4f4f4;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-bottom-left-radius: 6px;
-        border-bottom-right-radius: 6px;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
     }
 
     .column-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 25px;
-        padding-left: 15px;
-    }
-
-    .column-icon-bg {
-        width: 42px;
-        height: 42px;
-        background: #1a2b4c;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 15px;
-        color: #d4af37;
-        font-size: 1.2rem;
-        box-shadow: 0 3px 6px rgba(26, 43, 76, 0.2);
-    }
-
-    .timeline-footer .badge {
-        text-transform: uppercase;
-        font-size: 0.7rem;
-        font-weight: bold;
-        letter-spacing: 0.5px;
-        padding: 6px 12px;
+        margin-bottom: 20px;
+        padding-left: 5px;
+        border-bottom: 2px solid #dee2e6;
+        padding-bottom: 10px;
     }
 
     .btn-lawyer {
-        background-color: #1a2b4c;
+        background-color: #007bff;
         color: #fff;
         border: none;
-        border-radius: 4px;
         font-weight: 600;
-        letter-spacing: 0.5px;
-        transition: background-color 0.2s;
     }
 
-        .btn-lawyer:hover {
-            background-color: #2c4270;
-            color: #fff;
-        }
-
-    .page-title {
-        font-family: 'Merriweather', 'Times New Roman', serif;
-        color: #1a2b4c;
-        font-weight: 700;
-        border-left: 4px solid #d4af37;
-        padding-left: 12px;
+    .btn-lawyer:hover {
+        background-color: #0069d9;
+        color: #fff;
     }
 </style>
 
@@ -174,29 +125,11 @@
             @foreach (var category in categories)
             {
                 <div class="col-md-4">
-                    <div class="column-header d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center">
-                            <div class="column-icon-bg">
-                                @if (category == "Hearings & Trials")
-                                {
-                                    <i class="fas fa-balance-scale"></i>
-                                }
-                                else if (category == "Client Meetings")
-                                {
-                                    <i class="fas fa-handshake"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-briefcase"></i>
-                                }
-                            </div>
-                            <div>
-                                <h5 class="m-0 font-weight-bold" style="color: #1a2b4c; font-family: 'Merriweather', serif;">@category</h5>
-                                <small class="text-muted" style="font-weight: 600;">
-                                    @(category == "Hearings & Trials" ? "Court Appearances" : category == "Client Meetings" ? "Consultations" : "Documentation & Prep")
-                                </small>
-                            </div>
-                        </div>
+                    <div class="column-header">
+                        <h5 class="font-weight-bold text-primary mb-1">@category</h5>
+                        <small class="text-muted">
+                            @(category == "Hearings & Trials" ? "Court Appearances" : category == "Client Meetings" ? "Consultations" : "Documentation & Prep")
+                        </small>
                     </div>
 
                     <div class="timeline">
@@ -206,8 +139,8 @@
 
                             foreach (var group in groupedByDate)
                             {
-                                <div class="time-label mt-4 mb-3">
-                                    <span>@group.Key.ToString("MMMM d, yyyy")</span>
+                                <div class="time-label mt-3 mb-2">
+                                    <span>@group.Key.ToString("MMM d, yyyy")</span>
                                 </div>
                                 foreach (var meeting in group)
                                 {
@@ -216,12 +149,19 @@
                                         <div class="timeline-item meeting-card">
                                             <h3 class="timeline-header">@meeting.Title</h3>
                                             <div class="timeline-body">
-                                                <i class="fas fa-user-tie text-muted mr-1"></i> <strong>@meeting.Subtitle</strong>
+                                                <div class="mb-1"><i class="fas fa-user-tie text-muted mr-2"></i><strong>@meeting.Subtitle</strong></div>
+                                                @if (!string.IsNullOrEmpty(meeting.Location))
+                                                {
+                                                    <div class="small text-muted mb-1"><i class="fas fa-map-marker-alt mr-2"></i>@meeting.Location</div>
+                                                }
+                                                @if (!string.IsNullOrEmpty(meeting.Description))
+                                                {
+                                                    <div class="small text-secondary mt-2 border-top pt-2">@meeting.Description</div>
+                                                }
                                             </div>
                                             <div class="timeline-footer">
-                                                <div class="text-muted" style="font-size: 0.85rem;">
-                                                    <i class="far fa-comment-alt"></i> @meeting.CommentsCount &nbsp;&nbsp;
-                                                    <i class="far fa-file-alt"></i> @meeting.ViewsCount &nbsp;&nbsp;
+                                                <div class="text-muted small">
+                                                    <i class="far fa-clock"></i> @meeting.EventDate.ToString("hh:mm tt")
                                                 </div>
                                                 @if (!string.IsNullOrEmpty(meeting.TagText))
                                                 {
