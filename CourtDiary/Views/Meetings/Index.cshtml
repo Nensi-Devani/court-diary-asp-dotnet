@@ -1,86 +1,245 @@
 ﻿
+
+@model IEnumerable<CourtDiary.Models.Meeting>
+
 @{
-    ViewData["Title"] = "Meetings";
+    ViewData["Title"] = "Legal Schedule & Tasks";
+    var categories = new[] { "Hearings & Trials", "Client Meetings", "Case Prep" };
 }
-<section class="content-header">
+
+<style>
+    /* Lawyer Portal Premium Theme */
+    body {
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+
+    .lawyer-board-container {
+        background: #f8f9fa;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        border-radius: 8px;
+        border-top: 4px solid #1a2b4c; /* Navy Blue */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .meeting-card {
+        border-radius: 6px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        border-left: 4px solid #d4af37; /* Gold/Bronze */
+        background: #ffffff;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .meeting-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+        }
+
+    .timeline > div > .timeline-item {
+        margin-left: 24px;
+        margin-right: 15px;
+        margin-top: 0;
+        padding: 0;
+    }
+
+    .timeline > div > i {
+        width: 14px;
+        height: 14px;
+        font-size: 0px;
+        line-height: 14px;
+        left: 9px;
+        top: 15px;
+        border: 3px solid #1a2b4c;
+        background: #fff !important;
+        box-shadow: 0 0 0 3px #f8f9fa;
+    }
+
+    .time-label > span {
+        background: transparent !important;
+        color: #1a2b4c !important;
+        font-family: 'Merriweather', 'Times New Roman', serif;
+        font-size: 0.95rem;
+        font-weight: 700;
+        padding: 0;
+        margin-left: 20px;
+        border-bottom: 1px solid #d4af37;
+        padding-bottom: 3px;
+    }
+
+    .timeline::before {
+        left: 15px;
+        border-radius: 0;
+        width: 2px;
+        background: #d2d6de;
+    }
+
+    .timeline-header {
+        border-bottom: 1px solid #f0f0f0 !important;
+        font-size: 1.05rem;
+        font-family: 'Merriweather', 'Times New Roman', serif;
+        font-weight: 700;
+        padding: 12px 15px;
+        color: #1a2b4c;
+    }
+
+    .timeline-body {
+        padding: 10px 15px;
+        color: #4a5568;
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+
+    .timeline-footer {
+        padding: 10px 15px;
+        background-color: #fafbfc;
+        border-top: 1px solid #f0f0f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+    }
+
+    .column-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+        padding-left: 15px;
+    }
+
+    .column-icon-bg {
+        width: 42px;
+        height: 42px;
+        background: #1a2b4c;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        color: #d4af37;
+        font-size: 1.2rem;
+        box-shadow: 0 3px 6px rgba(26, 43, 76, 0.2);
+    }
+
+    .timeline-footer .badge {
+        text-transform: uppercase;
+        font-size: 0.7rem;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+        padding: 6px 12px;
+    }
+
+    .btn-lawyer {
+        background-color: #1a2b4c;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: background-color 0.2s;
+    }
+
+        .btn-lawyer:hover {
+            background-color: #2c4270;
+            color: #fff;
+        }
+
+    .page-title {
+        font-family: 'Merriweather', 'Times New Roman', serif;
+        color: #1a2b4c;
+        font-weight: 700;
+        border-left: 4px solid #d4af37;
+        padding-left: 12px;
+    }
+</style>
+
+<section class="content-header pb-4">
     <div class="container-fluid">
-        <div class="row mb-2">
+        <div class="row align-items-center">
             <div class="col-sm-6">
-                <h1>Calendar</h1>
+                <h1 class="page-title m-0">Legal Schedule & Tasks</h1>
+            </div>
+            <div class="col-sm-6 text-right">
+                <a asp-action="Create" class="btn btn-lawyer px-4 py-2 shadow-sm">
+                    <i class="fas fa-gavel mr-2"></i> Schedule Event
+                </a>
             </div>
         </div>
-    </div><!-- /.container-fluid -->
+    </div>
 </section>
+
 <section class="content">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="sticky-top mb-3">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Upcoming Events</h4>
-                        </div>
-                        <div class="card-body">
-                            <!-- the events -->
-                            <div id="external-events">
-                                <div class="external-event bg-success">Lunch</div>
-                                <div class="external-event bg-warning">Go home</div>
-                                <div class="external-event bg-info">Do homework</div>
-                                <div class="external-event bg-primary">Work on UI design</div>
-                                <div class="external-event bg-danger">Sleep tight</div>
-                                <div class="checkbox">
-                                    <label for="drop-remove">
-                                        <input type="checkbox" id="drop-remove">
-                                        remove after drop
-                                    </label>
-                                </div>
+        <div class="row lawyer-board-container mx-0">
+            @foreach (var category in categories)
+            {
+                <div class="col-md-4">
+                    <div class="column-header d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <div class="column-icon-bg">
+                                @if (category == "Hearings & Trials")
+                                {
+                                    <i class="fas fa-balance-scale"></i>
+                                }
+                                else if (category == "Client Meetings")
+                                {
+                                    <i class="fas fa-handshake"></i>
+                                }
+                                else
+                                {
+                                    <i class="fas fa-briefcase"></i>
+                                }
+                            </div>
+                            <div>
+                                <h5 class="m-0 font-weight-bold" style="color: #1a2b4c; font-family: 'Merriweather', serif;">@category</h5>
+                                <small class="text-muted" style="font-weight: 600;">
+                                    @(category == "Hearings & Trials" ? "Court Appearances" : category == "Client Meetings" ? "Consultations" : "Documentation & Prep")
+                                </small>
                             </div>
                         </div>
-                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Create Event</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="btn-group" style="width: 100%; margin-bottom: 10px;">
-                                <!--<button type="button" id="color-chooser-btn" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">Color <span class="caret"></span></button>-->
-                                <ul class="fc-color-picker" id="color-chooser">
-                                    <li><a class="text-primary" href="#"><i class="fas fa-square"></i></a></li>
-                                    <li><a class="text-warning" href="#"><i class="fas fa-square"></i></a></li>
-                                    <li><a class="text-success" href="#"><i class="fas fa-square"></i></a></li>
-                                    <li><a class="text-danger" href="#"><i class="fas fa-square"></i></a></li>
-                                    <li><a class="text-muted" href="#"><i class="fas fa-square"></i></a></li>
-                                </ul>
-                            </div>
-                            <!-- /btn-group -->
-                            <div class="input-group">
-                                <input id="new-event" type="text" class="form-control" placeholder="Event Title">
 
-                                <div class="input-group-append">
-                                    <button id="add-new-event" type="button" class="btn btn-primary">Add</button>
+                    <div class="timeline">
+                        @{
+                            var catMeetings = Model != null ? Model.Where(m => m.Category == category).OrderBy(m => m.EventDate).ToList() : new List<CourtDiary.Models.Meeting>();
+                            var groupedByDate = catMeetings.GroupBy(m => m.EventDate.Date);
+
+                            foreach (var group in groupedByDate)
+                            {
+                                <div class="time-label mt-4 mb-3">
+                                    <span>@group.Key.ToString("MMMM d, yyyy")</span>
                                 </div>
-                                <!-- /btn-group -->
-                            </div>
-                            <!-- /input-group -->
-                        </div>
+                                foreach (var meeting in group)
+                                {
+                                    <div>
+                                        <i class="fas fa-circle"></i>
+                                        <div class="timeline-item meeting-card">
+                                            <h3 class="timeline-header">@meeting.Title</h3>
+                                            <div class="timeline-body">
+                                                <i class="fas fa-user-tie text-muted mr-1"></i> <strong>@meeting.Subtitle</strong>
+                                            </div>
+                                            <div class="timeline-footer">
+                                                <div class="text-muted" style="font-size: 0.85rem;">
+                                                    <i class="far fa-comment-alt"></i> @meeting.CommentsCount &nbsp;&nbsp;
+                                                    <i class="far fa-file-alt"></i> @meeting.ViewsCount &nbsp;&nbsp;
+                                                </div>
+                                                @if (!string.IsNullOrEmpty(meeting.TagText))
+                                                {
+                                                    <span class="badge badge-pill badge-@meeting.TagColor">@meeting.TagText</span>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            if (!catMeetings.Any())
+                            {
+                                <div class="text-center text-muted mt-5" style="font-style:italic; font-family: 'Merriweather', serif;">No scheduled events.</div>
+                            }
+                        }
                     </div>
                 </div>
-            </div>
-            <!-- /.col -->
-            <div class="col-md-9">
-                <div class="card card-primary">
-                    <div class="card-body p-0">
-                        <!-- THE CALENDAR -->
-                        <div id="calendar" class="text-center"></div>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
-            </div>
-            <!-- /.col -->
+            }
         </div>
-        <!-- /.row -->
-    </div><!-- /.container-fluid -->
+    </div>
 </section>

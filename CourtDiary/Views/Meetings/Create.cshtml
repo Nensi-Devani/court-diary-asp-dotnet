@@ -1,0 +1,141 @@
+﻿
+
+@model CourtDiary.Models.Meeting
+
+@{
+    ViewData["Title"] = "Schedule Event";
+}
+
+<style>
+    .btn-lawyer {
+        background-color: #1a2b4c;
+        color: #fff;
+        border: none;
+        transition: background-color 0.2s;
+    }
+    .btn-lawyer:hover {
+        background-color: #2c4270;
+        color: #fff;
+    }
+    .card-lawyer {
+        border-top: 4px solid #1a2b4c;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    .card-lawyer .card-header {
+        background-color: #fff;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    .card-lawyer .card-title {
+        color: #1a2b4c;
+        font-family: 'Merriweather', serif;
+        font-weight: 700;
+    }
+    .page-title {
+        font-family: 'Merriweather', 'Times New Roman', serif;
+        color: #1a2b4c;
+        font-weight: 700;
+        border-left: 4px solid #d4af37;
+        padding-left: 12px;
+    }
+</style>
+
+<section class="content-header pb-4">
+    <div class="container-fluid">
+        <div class="row mb-2 align-items-center">
+            <div class="col-sm-6">
+                <h1 class="page-title m-0">Schedule Event</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-action="Index">Legal Schedule</a></li>
+                    <li class="breadcrumb-item active">Create</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card card-lawyer">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-balance-scale mr-2" style="color: #d4af37;"></i> Event Details</h3>
+                    </div>
+                    <form asp-action="Create" method="post">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label asp-for="Title">Title (Event Description)</label>
+                                <input asp-for="Title" class="form-control" placeholder="Enter title" required />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Subtitle">Assignee / Client Name</label>
+                                <input asp-for="Subtitle" class="form-control" placeholder="Enter client or assignee name" />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="Category">Category</label>
+                                        <select asp-for="Category" class="form-control" required>
+                                            <option value="">Select Category...</option>
+                                            <option value="Hearings & Trials">Hearings & Trials</option>
+                                            <option value="Client Meetings">Client Meetings</option>
+                                            <option value="Case Prep">Case Prep</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="EventDate">Date</label>
+                                        <input asp-for="EventDate" type="date" class="form-control" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="TagText">Status/Priority Tag</label>
+                                        <input asp-for="TagText" class="form-control" placeholder="e.g. URGENT, FILED, PENDING" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="TagColor">Tag Color</label>
+                                        <select asp-for="TagColor" class="form-control">
+                                            <option value="primary">Blue (Primary)</option>
+                                            <option value="success">Green (Success/Done)</option>
+                                            <option value="warning">Yellow (Warning/Pending)</option>
+                                            <option value="danger">Red (Danger/Urgent)</option>
+                                            <option value="info">Light Blue (Info)</option>
+                                            <option value="secondary">Gray (Secondary)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="CommentsCount">Initial Comments Count</label>
+                                        <input asp-for="CommentsCount" type="number" class="form-control" value="0" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="ViewsCount">Initial Document/View Count</label>
+                                        <input asp-for="ViewsCount" type="number" class="form-control" value="0" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-top">
+                            <button type="submit" class="btn btn-lawyer px-4"><i class="fas fa-save mr-1"></i> Save Event</button>
+                            <a asp-action="Index" class="btn btn-default float-right">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
