@@ -1,4 +1,4 @@
-﻿
+﻿@* 
 @{
     ViewData["Title"] = "Viewlawyer";
 }
@@ -72,4 +72,81 @@
 
     </div>
 </div>
+ *@
 
+
+
+@model CourtDiary.Models.User
+
+@{
+    ViewData["Title"] = "Viewlawyer";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-6">
+                <h4 class="m-0">Lawyer Details</h4>
+            </div>
+
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Lawyers" asp-action="Index">Lawyers</a>
+                    </li>
+                    <li class="breadcrumb-item active">View Lawyer</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="card mx-4">
+    <div class="card-body">
+
+        <!-- IMAGE -->
+        <div class="text-center mb-3">
+            <img src="@(string.IsNullOrEmpty(Model.avatar) ? "/images/user.jpg" : Model.avatar)"
+                 class="img-circle"
+                 style="width:125px; height:125px; object-fit:cover;"
+                 alt="User">
+        </div>
+
+        <div class="row mx-1">
+
+            <!-- Name -->
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Lawyer Name</label>
+                <p class="form-control">@Model.name</p>
+            </div>
+
+            <!-- Email -->
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Email</label>
+                <p class="form-control">@Model.email</p>
+            </div>
+
+            <!-- Office Email -->
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Office Email</label>
+                <p class="form-control">@Model.office_email</p>
+            </div>
+
+            <!-- Office Contact -->
+            <div class="col-md-12 mb-3">
+                <label class="form-label fw-bold">Office Contact No.</label>
+                <p class="form-control">@Model.office_phone_no</p>
+            </div>
+
+            <!-- Office Address -->
+            <div class="col-md-12 mb-3">
+                <label class="form-label fw-bold">Office Address</label>
+                <textarea class="form-control" rows="4" readonly>@Model.office_address</textarea>
+            </div>
+
+        </div>
+
+    </div>
+</div>

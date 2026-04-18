@@ -1,4 +1,4 @@
-﻿
+﻿@* 
 @{
     ViewData["Title"] = " lawyer Create";
 }
@@ -91,4 +91,135 @@
             </div>
         </div>
     </form>
+ *@
 
+
+@model CourtDiary.Models.User
+
+@{
+    ViewData["Title"] = "Lawyer Create";
+}
+
+<!-- Header -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-6">
+                <h4>Add Lawyer</h4>
+            </div>
+
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Lawyers" asp-action="Index">Lawyers</a>
+                    </li>
+                    <li class="breadcrumb-item active">Add Lawyer</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- FORM -->
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="card mx-4">
+        <div class="card-body">
+
+            <!-- VALIDATION -->
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <!-- IMAGE PREVIEW -->
+            <div class="text-center">
+                <img id="previewImg"
+                     src="~/images/user.jpg"
+                     class="img-fluid img-circle"
+                     style="width:125px; height:125px; object-fit:cover;"
+                     alt="User">
+            </div>
+
+            <!-- FILE INPUT -->
+            <div class="text-center mt-2">
+                <input type="file"
+                       name="avatarFile"
+                       id="avatar"
+                       class="d-none"
+                       accept="image/*"
+                       onchange="loadImage(event)" />
+
+                <label for="avatar" class="btn btn-secondary btn-sm px-3">
+                    Choose Image
+                </label>
+            </div>
+
+            <!-- FORM FIELDS -->
+            <div class="row mx-1 my-4">
+
+                <!-- Name -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Lawyer Name</label>
+                    <input asp-for="name" class="form-control" placeholder="Enter lawyer name">
+                    <span asp-validation-for="name" class="text-danger"></span>
+                </div>
+
+                <!-- Email -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Email</label>
+                    <input asp-for="email" class="form-control" placeholder="Enter email">
+                    <span asp-validation-for="email" class="text-danger"></span>
+                </div>
+
+                <!-- Password -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Password</label>
+                    <input asp-for="password" type="password" class="form-control" placeholder="Enter password">
+                    <span asp-validation-for="password" class="text-danger"></span>
+                </div>
+
+                <!-- Office Email -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Office Email</label>
+                    <input asp-for="office_email" class="form-control" placeholder="Enter office email">
+                </div>
+
+                <!-- Office Contact -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Office Contact No.</label>
+                    <input asp-for="office_phone_no" class="form-control" placeholder="Enter office contact number">
+                </div>
+
+                <!-- Office Address -->
+                <div class="col-md-12 mb-3">
+                    <label class="form-label">Office Address</label>
+                    <textarea asp-for="office_address" class="form-control" rows="4" placeholder="Enter office address"></textarea>
+                </div>
+
+            </div>
+
+            <!-- SUBMIT -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary fs-5 px-4">
+                    Add
+                </button>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<!-- IMAGE PREVIEW SCRIPT -->
+<script>
+    function loadImage(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            document.getElementById('previewImg').src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+
+<!-- VALIDATION SCRIPTS -->
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
