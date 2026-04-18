@@ -1,4 +1,4 @@
-﻿namespace CourtDiary.Migrations
+namespace CourtDiary.Migrations
 {
     using System;
     using System.Data.Entity;
@@ -9,7 +9,8 @@
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(CourtDiary.Models.CourtDiaryContext context)
