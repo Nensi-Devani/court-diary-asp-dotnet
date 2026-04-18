@@ -1,4 +1,5 @@
-﻿
+﻿@model CourtDiary.Models.Client
+
 @{
     ViewData["Title"] = "Edit Client";
 }
@@ -22,55 +23,85 @@
     </div>
 </div>
 
+<div class="card mx-4">
+    <div class="card-body">
 
-    <div class="card mx-4">
-        <div class="card-body">
-            <form>
+        <!-- ✅ IMPORTANT -->
+        <form method="post" enctype="multipart/form-data">
 
-                <div class="text-center">
-                    <img src="~/images/user.jpg" class="image-fluid img-circle" style="width:125px;" alt="User">
+            <!-- Hidden ID -->
+            <input type="hidden" name="client_id" value="@Model.client_id" />
+
+            <!-- IMAGE -->
+            <div class="text-center">
+                <img id="previewImg"
+                     src="@(string.IsNullOrEmpty(Model.ImagePath) ? "/images/user.jpg" : Model.ImagePath)"
+                     class="img-fluid img-circle"
+                     style="width:125px; height:125px; object-fit:cover;"
+                     alt="User">
+            </div>
+
+            <!-- Upload -->
+            <div class="text-center mt-2">
+                <input type="file"
+                       name="avatar"
+                       id="avatar"
+                       class="d-none"
+                       accept="image/*"
+                       onchange="loadImage(event)" />
+
+                <label for="avatar" class="btn btn-secondary btn-sm px-3">
+                    Change Image
+                </label>
+            </div>
+
+            <div class="row mx-1 my-2">
+
+                <!-- Name -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Client Name</label>
+                    <input type="text" name="name" class="form-control" value="@Model.name">
                 </div>
 
-                <div class="text-center mt-2">
-                    <input type="file" name="avatar" id="avatar" class="d-none" />
-                    <label for="avatar" class="btn btn-secondary btn-sm px-3">Choose</label>
+                <!-- Phone -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Phone</label>
+                    <input type="text" name="phone" class="form-control" value="@Model.phone">
                 </div>
 
-                <div class="row mx-1 my-2">
-
-                    <!-- Client Name -->
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Client Name</label>
-                        <input type="text" class="form-control" value="John Doe">
-                    </div>
-
-                    <!-- Phone -->
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Phone</label>
-                        <input type="text" class="form-control" value="9876543210">
-                    </div>
-
-                    <!-- Address -->
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Address</label>
-                        <textarea class="form-control" rows="3">New York Street</textarea>
-                    </div>
-
-                    <!-- Description -->
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea class="form-control" rows="3">Regular Client</textarea>
-                    </div>
-
+                <!-- Address -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Address</label>
+                    <textarea name="address" class="form-control" rows="3">@Model.address</textarea>
                 </div>
 
-                <!-- Buttons -->
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary fs-5 px-4">
-                        Update
-                    </button>
+                <!-- Description -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea name="description" class="form-control" rows="3">@Model.description</textarea>
                 </div>
 
-            </form>
-        </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary fs-5 px-4">
+                    Update
+                </button>
+            </div>
+
+        </form>
+
     </div>
+</div>
+
+<!-- IMAGE PREVIEW SCRIPT -->
+<script>
+    function loadImage(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            document.getElementById('previewImg').src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
