@@ -1,63 +1,54 @@
-﻿@{
-    ViewData["Title"] = "Edit";
+@model CourtDiary.Models.User
+@{
+    ViewData["Title"] = "Edit Profile";
 }
+
 <div class="container py-2">
 
-        <!-- Profile Card -->
+    <form method="post" asp-controller="Profile" asp-action="Edit">
+        <!-- Profile Overview (Non-editable part in this view, or add fields if needed) -->
         <div class="card shadow mx-auto" style="max-width:400px">
-
-            <div class="bg-primary rounded " style="height:60px"></div>
-
+            <div class="bg-primary rounded" style="height:60px"></div>
             <div class="card-body text-center">
-
-                <img src="~/images/user.jpg"
+                <img src="@(!string.IsNullOrEmpty(Model.avatar) ? Model.avatar : "/images/user.jpg")"
                      alt="User"
-                     style="width:100px; height:100px; border-radius:50%; margin-top:-50px; border:3px solid #fff;">
+                     style="width:100px; height:100px; border-radius:50%; margin-top:-50px; border:3px solid #fff; object-fit: cover;">
 
-                <h4 class="mt-3">Krisha Shira</h4>
-                <p class="text-muted">Criminal Lawyer</p>
-
-                <hr>
-
-                <div class="text-left">
-                    <p><strong>Email:</strong> krisha@gmail.com</p>
-                    <hr>
-                    <p><strong>Mobile No:</strong> 5433456867</p>
-                    <hr>
-                    <p><strong>Member Since:</strong> 2021</p>
+                <div class="mt-3">
+                    <label class="small text-muted mb-0">Full Name</label>
+                    <input type="text" name="name" class="form-control text-center font-weight-bold" value="@Model.name" required>
                 </div>
-
+                <p class="text-muted mt-2">@(Model.role == 1 ? "Administrator" : "Lawyer")</p>
+                <hr>
+                <div class="text-left small">
+                    <p><strong>Email:</strong> @Model.email</p>
+                    <p><strong>Member Since:</strong> @Model.created_at.ToString("MMMM yyyy")</p>
+                </div>
             </div>
         </div>
 
-
-        <!-- Office Details -->
+        <!-- Office Details (Editable) -->
         <div class="card shadow mt-4" style="max-width:400px; margin:40px auto;">
-
             <div class="card-header bg-primary text-white">
-                Office Details
+                Edit Office Details
             </div>
-
             <div class="card-body">
-
-                <p><b>Office Contact</b></p>
-                <input type="text" class="form-control" value="+91 3456796845">
-
+                <div class="form-group">
+                    <label>Office Address</label>
+                    <textarea name="office_address" class="form-control" rows="2">@Model.office_address</textarea>
+                </div>
                 <hr>
-
-                <p><b>Office Address</b></p>
-                <input type="text" class="form-control" value="Ahemdabad , Gujarat">
-
-                <hr>
-
-                <p><b>Work Mail</b></p>
-                <input type="text" class="form-control" value="advnina345@gmail.com">
-
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <input type="text" name="office_phone_no" class="form-control" value="@Model.office_phone_no">
+                </div>
                 <br>
-
-            <a class="btn btn-primary w-100" asp-controller="Profile" asp-action="Index">Save</a>
-
+                <div class="d-flex">
+                    <a class="btn btn-outline-secondary w-50 mr-2" asp-controller="Profile" asp-action="Index">Cancel</a>
+                    <button type="submit" class="btn btn-primary w-50">Save Changes</button>
+                </div>
             </div>
         </div>
+    </form>
 
-    </div>
+</div>
