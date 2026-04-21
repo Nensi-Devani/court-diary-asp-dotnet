@@ -1,74 +1,98 @@
-﻿
+@model CourtDiary.Models.Client
 @{
-    ViewData["Title"] = " Admin Create";
+    ViewData["Title"] = "Admin Create";
 }
 
-
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-
-                <!-- Page Title -->
-                <div class="col-sm-6">
-                    <h4 class="">Add Client</h4>
-                </div>
-
-                <!-- Breadcrumb -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a asp-controller="Clients" asp-action="Index">Clients</a></li>
-                        <li class="breadcrumb-item active">Add Client</li>
-                    </ol>
-                </div>
-
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <!-- Page Title -->
+            <div class="col-sm-6">
+                <h4 class="">Add Client</h4>
+            </div>
+            <!-- Breadcrumb -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/Admin/Clients/Index">Clients</a></li>
+                    <li class="breadcrumb-item active">Add Client</li>
+                </ol>
             </div>
         </div>
     </div>
+</div>
 
-    <form>
-        <div class="card mx-4">
-            <div class="card-body">
+<form method="post" action="/Admin/Clients/Create" enctype="multipart/form-data">
+    <div class="card mx-4">
+        <div class="card-body">
+            <!-- Profile Image -->
+            <div class="text-center">
+                <img id="imgPreview" src="/images/user.jpg" class="img-fluid img-circle" style="width:125px; height:125px; object-fit:cover;" alt="User">
+            </div>
 
-                <!-- Profile Image -->
-                <div class="text-center">
-                    <img src="~/images/user.jpg" class="img-fluid img-circle" style="width:125px;" alt="User">
+            <!-- Upload Button -->
+            <div class="text-center mt-2">
+                <input type="file" name="avatar" id="avatar" class="d-none" accept="image/*" onchange="previewImage(event)" />
+                <label for="avatar" class="btn btn-secondary btn-sm px-3">Choose Image</label>
+            </div>
+
+            <div class="row mx-1 my-3">
+                <!-- Client Name -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Client Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="name" placeholder="Enter client name" required>
                 </div>
 
-                <!-- Upload Button -->
-                <div class="text-center mt-2">
-                    <input type="file" name="avatar" id="avatar" class="d-none" />
-                    <label for="avatar" class="btn btn-secondary btn-sm px-3">Choose</label>
+                <!-- Phone -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Phone</label>
+                    <input type="text" class="form-control" name="phone" placeholder="Enter phone number">
                 </div>
 
-                <div class="row mx-1 my-3">
-
-                    <!-- Client Name -->
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Client Name</label>
-                        <input type="text" class="form-control" placeholder="Enter client name">
-                    </div>
-
-                    <!-- Phone -->
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Phone</label>
-                        <input type="text" class="form-control" placeholder="Enter phone number">
-                    </div>
-
-                    <!-- Address -->
-                    <div class="col-md-12 mb-3">
-                        <label class="form-label">Address</label>
-                        <textarea class="form-control" rows="3" placeholder="Enter address"></textarea>
-                    </div>
-            
+                <!-- Lawyer -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Lawyer <span class="text-danger">*</span></label>
+                    <select name="user_id" class="form-control" required>
+                        <option value="">Select Lawyer</option>
+                        @if (ViewBag.Users != null)
+                        {
+                            foreach (var u in ViewBag.Users)
+                            {
+                                <option value="@u.user_id">@u.name</option>
+                            }
+                        }
+                    </select>
+                </div>
+                
+                <!-- Description -->
+                <div class="col-md-12 mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" name="description" rows="2" placeholder="Enter description"></textarea>
                 </div>
 
-                <!-- Submit Button -->
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary fs-5 px-4">
-                        Add
-                    </button>
+                <!-- Address -->
+                <div class="col-md-12 mb-3">
+                    <label class="form-label">Address</label>
+                    <textarea class="form-control" name="address" rows="3" placeholder="Enter address"></textarea>
                 </div>
+            </div>
 
+            <!-- Submit Button -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary fs-5 px-4">
+                    Add Client
+                </button>
             </div>
         </div>
-    </form>
+    </div>
+</form>
+
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('imgPreview');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>

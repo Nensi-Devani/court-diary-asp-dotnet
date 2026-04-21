@@ -1,4 +1,4 @@
-﻿
+@model CourtDiary.Models.Client
 @{
     ViewData["Title"] = "Viewdetails";
 }
@@ -6,62 +6,55 @@
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
-
             <div class="col-sm-6">
                 <h4 class="m-0">Client Details</h4>
             </div>
-
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a asp-controller="Clients" asp-action="Index">Clients</a></li>
+                    <li class="breadcrumb-item"><a href="/Admin/Clients/Index">Clients</a></li>
                     <li class="breadcrumb-item active">View Client</li>
                 </ol>
             </div>
-
         </div>
     </div>
 </div>
 
 <div class="card mx-4">
     <div class="card-body">
-
         <!-- Client Image -->
         <div class="text-center mb-3">
-            <img src="~/images/user.jpg" class="img-circle" style="width:125px;" alt="User">
+            <img src="@(!string.IsNullOrEmpty(Model.ImagePath) ? Model.ImagePath : "/images/user.jpg")" class="img-circle" style="width:125px; height:125px; object-fit:cover;" alt="User">
         </div>
 
         <div class="row mx-1">
-
             <!-- Client Name -->
             <div class="col-md-6 mb-3">
                 <label class="form-label fw-bold">Client Name</label>
-                <p class="form-control">John Doe</p>
+                <p class="form-control" style="background-color: #e9ecef;">@Model.name</p>
             </div>
 
             <!-- Phone no-->
             <div class="col-md-6 mb-3">
                 <label class="form-label fw-bold">Phone</label>
-                <p class="form-control">9876543210</p>
+                <p class="form-control" style="background-color: #e9ecef;">@Model.phone</p>
+            </div>
+            
+            <!-- Description -->
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Description</label>
+                <p class="form-control" style="background-color: #e9ecef;">@Model.description</p>
             </div>
 
             <!-- Address -->
             <div class="col-md-6 mb-3">
                 <label class="form-label fw-bold">Address</label>
-                <p class="form-control">New York Street</p>
+                <p class="form-control" style="background-color: #e9ecef; min-height: 80px;">@Model.address</p>
             </div>
-
-            <!-- Description -->
-            <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Description</label>
-                <p class="form-control">Regular Client</p>
-            </div>
-
         </div>
-
+        
+        <div class="text-center">
+            <a href="/Admin/Clients/Index" class="btn btn-secondary">Back to List</a>
+            <a href="/Admin/Clients/Edit/@Model.client_id" class="btn btn-warning">Edit</a>
+        </div>
     </div>
-
 </div>
-</div>
-
-
-
