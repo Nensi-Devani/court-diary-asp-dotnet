@@ -1,49 +1,36 @@
-﻿
+@model IEnumerable<CourtDiary.Models.Case>
 @{
-    ViewData["Title"] = " Admin cases Index";
+    ViewData["Title"] = "Admin Cases";
+    var lawyers = ViewBag.Lawyers as IEnumerable<CourtDiary.Models.User>;
 }
 
 <div class="container-fluid mt-4">
     <div class="row">
         <div class="col-12">
-
             <div class="card">
 
                 <!-- Card Header -->
-
                 <div class="card-header" style="display:flex; align-items:center;">
-
                     <h3 class="card-title">Cases</h3>
-
                     <div class="card-tools" style="margin-left:auto; display:flex; align-items:center; gap:10px;">
-
                         <!-- Search -->
-
                         <div class="search-box" style="position:relative; width:180px;">
-
                             <i class="fas fa-search"
                                style="position:absolute; top:50%; left:8px; transform:translateY(-50%); color:#6c757d; font-size:14px;"></i>
-
-                            <input type="text" placeholder="Search"
-                                   style="width:100%; height:30px; padding-left:30px; border:1px solid #ced4da; border-radius:5px; font-size:14px;">
-
+                            <input type="text" id="searchInput" placeholder="Search"
+                                   style="width:100%; height:30px; padding-left:30px; border:1px solid #ced4da; border-radius:5px; font-size:14px;"
+                                   onkeyup="filterTable()">
                         </div>
 
-                        <a asp-controller="Cases" asp-action="Create"
-                           class="btn btn-primary btn-sm">
+                        <a href="/Admin/Cases/Create" class="btn btn-primary btn-sm">
                             <i class="fas fa-plus"></i> Add New
                         </a>
-
                     </div>
-
                 </div>
 
                 <!-- Card Body -->
-
                 <div class="card-body table-responsive" style="overflow-x:auto;">
-
-                    <table class="table table-striped text-center" style="white-space:nowrap;">
-
+                    <table class="table table-striped text-center" id="casesTable" style="white-space:nowrap;">
                         <thead>
                             <tr>
                                 <th>Sr No</th>
@@ -53,72 +40,96 @@
                                 <th>Title</th>
                                 <th>Location</th>
                                 <th>Client</th>
-                                <th>Opp.Lawyer</th>
+                                <th>Opp. Party</th>
                                 <th>Next Hearing</th>
-                                <th>Uploaded Docs</th>
-                                <th>Payment Status</th>
+                                <th>Docs</th>
                                 <th>Case Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-
                         <tbody>
-
-                            @for (int i = 1; i <= 5; i++)
+                            @{
+                                int srNo = 1;
+                            }
+                            @foreach (var c in Model)
                             {
-
+                                var lawyer = lawyers?.FirstOrDefault(l => l.user_id == c.user_id);
+                                var nextHearing = c.Hearings?.OrderByDescending(h => h.next_hearing_date).FirstOrDefault();
+                                var oppLawyer = c.Case_Parties?.FirstOrDefault(p => p.type == "Opposite Party Lawyer");
+                                int docCount = c.Uploads?.Count ?? 0;
+                                string statusClass = c.status == "Active" ? "success"
+                                                   : c.status == "Closed" ? "danger"
+                                                   : "warning";
                                 <tr>
-                                    <td>@i</td>
+                                    <td>@srNo</td>
 
+                                    <!-- Lawyer avatar -->
                                     <td>
-                                        <img src="~/images/user.jpg"
-                                             class="profile-img"
-                                             style="width:40px; height:40px; border-radius:10%;">
+                                        <img src="@(!string.IsNullOrEmpty(lawyer?.avatar) ? lawyer.avatar : "/images/user.jpg")"
+                                             style="width:40px; height:40px; border-radius:10%; object-fit:cover;">
                                     </td>
 
-                                    <td>John Doe</td>
-                                    <td>98765</td>
-                                    <td>Cyber Fraud</td>
-                                    <td>Rajkot, Gujarat</td>
-                                    <td>Rohan Mehta</td>
-                                    <td>Adv.Amit Kapoor</td>
-                                    <td>15-10-2024</td>
+                                    <td>@(lawyer?.name ?? "N/A")</td>
+                                    <td>@c.case_no</td>
+                                    <td>@c.title</td>
+                                    <td>@c.location</td>
 
-                                    <td><span class="badge bg-secondary">3</span></td>
-                                    <td><span class="badge bg-success">Paid</span></td>
-                                    <td><span class="badge bg-success">Active</span></td>
+                                    <!-- Client name -->
+                                    <td>@(c.Client?.name ?? "N/A")</td>
 
+                                    <!-- Opposite party lawyer -->
+                                    <td>@(oppLawyer?.name ?? "N/A")</td>
+
+                                    <!-- Next hearing -->
+                                    <td>@(nextHearing?.next_hearing_date?.ToString("dd-MM-yyyy") ?? "N/A")</td>
+
+                                    <!-- Doc count -->
+                                    <td><span class="badge bg-secondary">@docCount</span></td>
+
+                                    <!-- Case status -->
+                                    <td><span class="badge bg-@statusClass">@(c.status ?? "N/A")</span></td>
+
+                                    <!-- Action buttons -->
                                     <td>
-
-                                        <a asp-controller="Cases" asp-action="Viewdetails" class="btn btn-sm btn-info">
+                                        <a href="/Admin/Cases/Viewdetails/@c.case_id" class="btn btn-sm btn-info">
                                             <i class="fas fa-eye"></i>
                                         </a>
-
-                                        <a asp-controller="Cases" asp-action="Edit" class="btn btn-sm btn-warning">
+                                        <a href="/Admin/Cases/Edit/@c.case_id" class="btn btn-sm btn-warning">
                                             <i class="fas fa-edit"></i>
                                         </a>
-
-                                        <button class="btn btn-sm btn-danger">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-
+                                        <form method="post" action="/Admin/Cases/Delete/@c.case_id" style="display:inline;"
+                                              onsubmit="return confirm('Delete this case?');">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </td>
-
                                 </tr>
+                                srNo++;
                             }
 
+                            @if (!Model.Any())
+                            {
+                                <tr>
+                                    <td colspan="12" class="text-muted py-4">No cases found. <a href="/Admin/Cases/Create">Add one now</a>.</td>
+                                </tr>
+                            }
                         </tbody>
-
                     </table>
-
                 </div>
 
             </div>
-
         </div>
-
     </div>
 </div>
 
-
-
+<script>
+function filterTable() {
+    var input = document.getElementById("searchInput").value.toLowerCase();
+    var rows = document.querySelectorAll("#casesTable tbody tr");
+    rows.forEach(function(row) {
+        row.style.display = row.innerText.toLowerCase().includes(input) ? "" : "none";
+    });
+}
+</script>

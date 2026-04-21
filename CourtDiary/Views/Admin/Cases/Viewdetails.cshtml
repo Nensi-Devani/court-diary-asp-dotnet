@@ -1,224 +1,195 @@
-﻿@{
-    ViewData["Title"] = "Viewdetails";
+@model CourtDiary.Models.Case
+@{
+    ViewData["Title"] = "View Case Details";
+    var lawyers = ViewBag.Lawyers as IEnumerable<CourtDiary.Models.User>;
+    var assignedLawyer = lawyers?.FirstOrDefault(l => l.user_id == Model.user_id);
+    var hearing = Model.Hearings?.FirstOrDefault();
+    var oppParty = Model.Case_Parties?.FirstOrDefault(p => p.type == "Opposite Party");
+    var oppLawyer = Model.Case_Parties?.FirstOrDefault(p => p.type == "Opposite Party Lawyer");
 }
 
-
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-
-                <div class="col-sm-6">
-                    <h4 class="m-0">View Case</h4>
-                </div>
-
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a asp-controller="Cases" asp-action="Index">Cases</a></li>
-                        <li class="breadcrumb-item active">View Case</li>
-                    </ol>
-                </div>
-
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6"><h4 class="m-0">View Case</h4></div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/Admin/Cases/Index">Cases</a></li>
+                    <li class="breadcrumb-item active">View Case</li>
+                </ol>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Case Details -->
-    <div class="card mx-4 mb-4">
-        <div class="card-body">
-
-            <h5><b>Case Details:</b></h5>
-
-            <div class="row mt-3">
-
-                <div class="col-md-6 mb-3">
-                    <label>Case No</label>
-                    <p class="form-control">35670158</p>
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label>Case Title</label>
-                    <p class="form-control">Property</p>
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label>Case First Hearing</label>
-                    <p class="form-control">2020-01-09</p>
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label>Case Next Hearing</label>
-                    <p class="form-control">2020-01-12</p>
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label>Previous Hearing</label>
-                    <p class="form-control">2020-01-08</p>
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label>Location</label>
-                    <p class="form-control">Mumbai District Civil Court</p>
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label>Hearing Notes</label>
-                    <p class="form-control">
-                        Both parties were present. Court requested property documents.
-                    </p>
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label>Previous Hearing Summary</label>
-                    <p class="form-control">
-                        Defendant requested additional time to submit statement.
-                    </p>
-                </div>
-
-                <div class="col-md-12 mb-3">
-                    <label>Case Description</label>
-                    <p class="form-control">
-                        This case relates to a property ownership dispute.
-                    </p>
-                </div>
-
+<!-- ========== CASE DETAILS ========== -->
+<div class="card mx-4 mb-4">
+    <div class="card-body">
+        <h5><b>Case Details:</b></h5>
+        <div class="row mt-3">
+            <div class="col-md-6 mb-3">
+                <label>Case No</label>
+                <p class="form-control" style="background:#e9ecef;">@Model.case_no</p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Case Title</label>
+                <p class="form-control" style="background:#e9ecef;">@Model.title</p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>First Hearing Date</label>
+                <p class="form-control" style="background:#e9ecef;">@(hearing?.hearing_date?.ToString("dd-MM-yyyy") ?? "N/A")</p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Next Hearing Date</label>
+                <p class="form-control" style="background:#e9ecef;">@(hearing?.next_hearing_date?.ToString("dd-MM-yyyy") ?? "N/A")</p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Location</label>
+                <p class="form-control" style="background:#e9ecef;">@(Model.location ?? "N/A")</p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Case Status</label>
+                <p class="form-control" style="background:#e9ecef;">
+                    @{
+                        string cls = Model.status == "Active" ? "success" : Model.status == "Closed" ? "danger" : "warning";
+                    }
+                    <span class="badge bg-@cls">@(Model.status ?? "N/A")</span>
+                </p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Hearing Notes</label>
+                <p class="form-control" style="background:#e9ecef; min-height:80px;">@Model.hearing_notes</p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Previous Hearing Summary</label>
+                <p class="form-control" style="background:#e9ecef; min-height:80px;">@Model.previous_hearing_summary</p>
+            </div>
+            <div class="col-md-12 mb-3">
+                <label>Case Description</label>
+                <p class="form-control" style="background:#e9ecef; min-height:80px;">@Model.description</p>
             </div>
         </div>
     </div>
+</div>
 
-
-    <!-- Document Section -->
-    <div class="card mx-4 mb-4">
-        <div class="card-body">
-
-            <h5><b>Document:</b></h5>
-
-            <div class="row mt-3 align-items-center">
-
-                <!-- PDF Files -->
-                <div class="col-md-6 d-flex">
-
-                    <div class="text-center mr-3">
-                        <i class="fas fa-file-pdf fa-3x text-secondary"></i>
+<!-- ========== DOCUMENTS ========== -->
+<div class="card mx-4 mb-4">
+    <div class="card-body">
+        <h5><b>Documents:</b></h5>
+        <div class="d-flex flex-wrap mt-3">
+            @if (Model.Uploads != null && Model.Uploads.Any())
+            {
+                foreach (var upload in Model.Uploads)
+                {
+                    <div class="text-center mr-4 mb-3">
+                        <a href="@upload.upload_url" target="_blank">
+                            <i class="fas fa-file-alt fa-3x text-secondary"></i>
+                        </a>
+                        <div class="mt-1 small text-muted">@upload.upload_category</div>
                     </div>
+                }
+            }
+            else
+            {
+                <p class="text-muted">No documents uploaded.</p>
+            }
+        </div>
+    </div>
+</div>
 
-                    <div class="text-center mr-3">
-                        <i class="fas fa-file-pdf fa-3x text-secondary"></i>
+<!-- ========== LAWYER ========== -->
+<div class="card mx-4 mb-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h5><b>Assigned Lawyer:</b></h5>
+                @if (assignedLawyer != null)
+                {
+                    <div class="d-flex align-items-center mt-3">
+                        <img src="@(!string.IsNullOrEmpty(assignedLawyer.avatar) ? assignedLawyer.avatar : "/images/user.jpg")"
+                             style="width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid #007bff;" class="mr-3">
+                        <div>
+                            <p class="mb-1 font-weight-bold">@assignedLawyer.name</p>
+                            <p class="mb-1 text-muted small">@assignedLawyer.email</p>
+                            <p class="mb-0 text-muted small">@assignedLawyer.office_phone_no</p>
+                        </div>
                     </div>
+                }
+                else
+                {
+                    <p class="text-muted mt-3">No lawyer assigned.</p>
+                }
+            </div>
 
-                    <div class="text-center mr-3">
-                        <i class="fas fa-file-pdf fa-3x text-secondary"></i>
+            <!-- ========== CLIENT ========== -->
+            <div class="col-md-6">
+                <h5><b>Client Details:</b></h5>
+                @if (Model.Client != null)
+                {
+                    <div class="d-flex align-items-center mt-3">
+                        <img src="@(!string.IsNullOrEmpty(Model.Client.ImagePath) ? Model.Client.ImagePath : "/images/user.jpg")"
+                             style="width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid #28a745;" class="mr-3">
+                        <div>
+                            <p class="mb-1 font-weight-bold">@Model.Client.name</p>
+                            <p class="mb-1 text-muted small">@Model.Client.phone</p>
+                            <p class="mb-0 text-muted small">@Model.Client.address</p>
+                        </div>
                     </div>
-
-                </div>
-
-                <!-- Buttons -->
-                <div class="col-md-6 text-md-right">
-                    <button class="btn btn-primary btn-sm mr-2">Court</button>
-                    <button class="btn btn-danger btn-sm mr-2">Evidence</button>
-                    <button class="btn btn-warning btn-sm">Client</button>
-                </div>
-
+                }
+                else
+                {
+                    <p class="text-muted mt-3">No client assigned.</p>
+                }
             </div>
         </div>
     </div>
+</div>
 
+<!-- ========== OPPOSITE PARTY ========== -->
+<div class="card mx-4 mb-4">
+    <div class="card-body">
+        <h5><b>Opposite Party Details:</b></h5>
+        <div class="row mt-3">
 
-    <!-- Lawyer and Client Details -->
-    <div class="card mx-4 mb-4">
-        <div class="card-body">
-
-            <div class="row">
-
-                <!-- Lawyer Details -->
-                <div class="col-md-6">
-                    <h5><b>Lawyer Details:</b></h5>
-
-                    <div class="text-center my-3">
-                        <img src="~/images/user.jpg" width="90" class="img-circle">
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Lawyer Name</label>
-                        <p class="form-control">Amit Verma</p>
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Mobile No</label>
-                        <p class="form-control">+91 9876543210</p>
-                    </div>
-                </div>
-
-                <!-- Client Details -->
-                <div class="col-md-6">
-                    <h5><b>Client Details:</b></h5>
-
-                    <div class="text-center my-3">
-                        <img src="~/images/user.jpg" width="90" class="img-circle">
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Client Name</label>
-                        <p class="form-control">Amit Verma</p>
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Mobile No</label>
-                        <p class="form-control">+91 9876543210</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Opposite Party Details -->
-    <div class="card mx-4 mb-4">
-        <div class="card-body">
-
-            <h5><b>Opposite Party Details:</b></h5>
-
-            <div class="row mt-4">
-
-                <!-- Opposite Party -->
-                <div class="col-md-6">
+            <div class="col-md-6">
+                <h6 class="text-secondary">Opposite Party</h6>
+                @if (oppParty != null)
+                {
                     <div class="text-center mb-3">
-                        <img src="~/images/user.jpg" width="90" class="img-circle">
+                        <img src="@(!string.IsNullOrEmpty(oppParty.avatar) ? oppParty.avatar : "/images/user.jpg")"
+                             width="80" style="height:80px;object-fit:cover;border-radius:50%;">
                     </div>
+                    <label>Name</label>
+                    <p class="form-control" style="background:#e9ecef;">@oppParty.name</p>
+                    <label>Notes</label>
+                    <p class="form-control" style="background:#e9ecef;min-height:60px;">@oppParty.notes</p>
+                }
+                else
+                {
+                    <p class="text-muted">No opposite party details provided.</p>
+                }
+            </div>
 
-                    <div class="mb-3">
-                        <label>Opposite Party Name</label>
-                        <p class="form-control">Amit Verma</p>
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Other Notes (Opp. party)</label>
-                        <p class="form-control">
-                            Defendant claims ancestral ownership of the disputed property.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Opposite Party Lawyer -->
-                <div class="col-md-6">
+            <div class="col-md-6">
+                <h6 class="text-secondary">Opposite Lawyer</h6>
+                @if (oppLawyer != null)
+                {
                     <div class="text-center mb-3">
-                        <img src="~/images/user.jpg" width="90" class="img-circle">
+                        <img src="@(!string.IsNullOrEmpty(oppLawyer.avatar) ? oppLawyer.avatar : "/images/user.jpg")"
+                             width="80" style="height:80px;object-fit:cover;border-radius:50%;">
                     </div>
-
-                    <div class="mb-3">
-                        <label>Opposite Party's Lawyer Name</label>
-                        <p class="form-control">Adv. Neeraj Kulkarni</p>
-                    </div>
-
-                    <div class="mb-3">
-                        <label>Other Notes (Lawyer)</label>
-                        <p class="form-control">
-                            Opposite counsel requested adjournment in last hearing.
-                        </p>
-                    </div>
-                </div>
-
+                    <label>Name</label>
+                    <p class="form-control" style="background:#e9ecef;">@oppLawyer.name</p>
+                    <label>Notes</label>
+                    <p class="form-control" style="background:#e9ecef;min-height:60px;">@oppLawyer.notes</p>
+                }
+                else
+                {
+                    <p class="text-muted">No opposite lawyer details provided.</p>
+                }
             </div>
         </div>
     </div>
+</div>
+
 
