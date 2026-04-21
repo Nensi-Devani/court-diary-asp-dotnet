@@ -24,6 +24,5 @@ namespace CourtDiary.Models
 
         public DbSet<Notification> Notifications { get; set; }
 
-        
     }
 }

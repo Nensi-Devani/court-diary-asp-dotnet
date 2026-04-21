@@ -31,5 +31,8 @@ namespace CourtDiary.Models
 
         [Required]
         public DateTime EventDate { get; set; } = DateTime.Now;
+
+        public string Location { get; set; }
+        public string Description { get; set; }
     }
 }
