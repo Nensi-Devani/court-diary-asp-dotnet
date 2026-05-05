@@ -48,6 +48,24 @@ namespace CourtDiary.Controllers.Admin
             db.Clients.Add(c);
             db.SaveChanges();
 
+            var email = HttpContext.Session.GetString("UserEmail");
+            if (!string.IsNullOrEmpty(email))
+            {
+                var loggedInUser = db.Users.FirstOrDefault(usr => usr.email == email);
+                if (loggedInUser != null)
+                {
+                    db.Notifications.Add(new Notification
+                    {
+                        user_id = loggedInUser.user_id,
+                        title = "New Client Added",
+                        message = $"Client {c.name} was successfully added.",
+                        created_at = DateTime.Now,
+                        is_read = false
+                    });
+                    db.SaveChanges();
+                }
+            }
+
             return RedirectToAction("Index");
         }
 

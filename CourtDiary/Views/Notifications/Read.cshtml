@@ -1,0 +1,53 @@
+@model CourtDiary.Models.Notification
+
+@{
+    ViewData["Title"] = "Notification Details";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Notification</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Notification</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">@Model.title</h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="mailbox-read-info mb-4">
+                            <h6>
+                                From: CourtDiary System
+                                <span class="mailbox-read-time float-right">@Model.created_at.ToString("dd MMM. yyyy h:mm tt")</span>
+                            </h6>
+                        </div>
+                        <div class="mailbox-read-message" style="font-size:1.1em;">
+                            <p>@Model.message.Split('|')[0]</p>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-default" onclick="history.back()"><i class="fas fa-arrow-left"></i> Back</button>
+                        @if (Model.title == "New Meeting Added")
+                        {
+                            <span class="text-muted ml-3"><small><i class="fas fa-info-circle"></i> This notification will automatically dismiss after the scheduled meeting time.</small></span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

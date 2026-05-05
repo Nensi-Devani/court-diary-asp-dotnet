@@ -1,4 +1,4 @@
-﻿//using Microsoft.AspNetCore.Mvc;
+//using Microsoft.AspNetCore.Mvc;
 //using CourtDiary.Models;
 //using System.Linq;
 //using System.Data.Entity;
@@ -426,6 +426,24 @@ namespace CourtDiary.Controllers
                 }
 
                 _context.SaveChanges();
+
+                var email = HttpContext.Session.GetString("UserEmail");
+                if (!string.IsNullOrEmpty(email))
+                {
+                    var loggedInUser = _context.Users.FirstOrDefault(usr => usr.email == email);
+                    if (loggedInUser != null)
+                    {
+                        _context.Notifications.Add(new Notification
+                        {
+                            user_id = loggedInUser.user_id,
+                            title = "New Case Added",
+                            message = $"Case '{caseObj.title}' was successfully added.",
+                            created_at = DateTime.Now,
+                            is_read = false
+                        });
+                        _context.SaveChanges();
+                    }
+                }
 
                 // ✅ Redirect logic added
                 var referer = Request.Headers["Referer"].ToString();

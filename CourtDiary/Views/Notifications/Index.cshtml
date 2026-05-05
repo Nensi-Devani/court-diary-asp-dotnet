@@ -1,0 +1,67 @@
+@model IEnumerable<CourtDiary.Models.Notification>
+
+@{
+    ViewData["Title"] = "All Unread Notifications";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Unread Notifications</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Notifications</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">All Unread Notifications</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+                        @if (Model != null && Model.Any())
+                        {
+                            <ul class="products-list product-list-in-card pl-2 pr-2">
+                                @foreach (var note in Model)
+                                {
+                                    <li class="item">
+                                        <div class="product-info ml-2">
+                                            <a href="/Notifications/Read/@note.notification_id" class="product-title">
+                                                @note.title
+                                                <span class="badge badge-warning float-right">@note.created_at.ToString("MMM dd yyyy, hh:mm tt")</span>
+                                            </a>
+                                            <span class="product-description">
+                                                @note.message
+                                            </span>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <div class="p-3 text-center text-muted">
+                                <h5>No unread notifications</h5>
+                            </div>
+                        }
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>

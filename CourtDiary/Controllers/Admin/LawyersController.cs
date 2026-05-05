@@ -1,4 +1,4 @@
-﻿//using Microsoft.AspNetCore.Mvc;
+//using Microsoft.AspNetCore.Mvc;
 
 //namespace CourtDiary.Controllers.Admin
 //{
@@ -94,6 +94,24 @@ namespace CourtDiary.Controllers.Admin
 
             db.Users.Add(u);
             db.SaveChanges();
+
+            var email = HttpContext.Session.GetString("UserEmail");
+            if (!string.IsNullOrEmpty(email))
+            {
+                var loggedInUser = db.Users.FirstOrDefault(usr => usr.email == email);
+                if (loggedInUser != null)
+                {
+                    db.Notifications.Add(new Notification
+                    {
+                        user_id = loggedInUser.user_id,
+                        title = "New Lawyer Added",
+                        message = $"Lawyer {u.name} was successfully added.",
+                        created_at = DateTime.Now,
+                        is_read = false
+                    });
+                    db.SaveChanges();
+                }
+            }
 
             return Redirect("/Admin/Lawyers/Index");
         }
