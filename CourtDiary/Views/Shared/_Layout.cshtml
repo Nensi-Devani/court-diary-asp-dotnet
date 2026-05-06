@@ -133,7 +133,7 @@
           @if (role == "Admin")
           {
             <li class="nav-item">
-                <a asp-controller="Dashboard" asp-action="Index" class="nav-link nav-link @(currentController == "Dashboard" ? "bg-primary text-white" : "")">
+                <a asp-controller="AdminDashboard" asp-action="Index" class="nav-link @(currentController == "AdminDashboard" ? "bg-primary text-white" : "")">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
                         Dashboard
