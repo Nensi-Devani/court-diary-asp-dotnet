@@ -1,0 +1,50 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Standard layout
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Admin Dashboard</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            @{
+                var dashboardData = new List<dynamic>
+                {
+                    new { Title = "Total Lawyers", Count = ViewBag.TotalLawyers, BgColor = "bg-info", Icon = "fas fa-user-graduate", Link = "/Admin/Lawyers/Index" },
+                    new { Title = "Total Cases", Count = ViewBag.TotalCases, BgColor = "bg-danger", Icon = "fas fa-file", Link = "/Admin/Cases/Index" },
+                    new { Title = "Active Cases", Count = ViewBag.ActiveCases, BgColor = "bg-success", Icon = "fas fa-check", Link = "/Admin/Cases/Index" },
+                    new { Title = "Today Hearing", Count = ViewBag.TodayHearings, BgColor = "bg-secondary", Icon = "fas fa-gavel", Link = "#" },
+                    new { Title = "Today Meetings", Count = ViewBag.TodayMeetings, BgColor = "bg-primary", Icon = "fas fa-calendar", Link = "#" },
+                    new { Title = "Total Clients", Count = ViewBag.TotalClients, BgColor = "bg-warning", Icon = "fas fa-users", Link = "/Admin/Clients/Index" }
+                };
+            }
+
+            @foreach (var item in dashboardData)
+            {
+                <div class="col-lg-3 col-6 mb-4">
+                    <div class="small-box @item.BgColor h-100">
+                        <div class="inner">
+                            <h3>@item.Count</h3>
+                            <p>@item.Title</p>
+                        </div>
+                        <div class="icon">
+                            <i class="@item.Icon"></i>
+                        </div>
+                        <a href="@item.Link" class="small-box-footer">
+                            More info <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
