@@ -230,8 +230,31 @@ namespace CourtDiary.Controllers
             return RedirectToAction("Login");
         }
 
+        [HttpGet]
         public IActionResult ForgotPassword()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ForgotPassword(string Email)
+        {
+            var user = db.Users.FirstOrDefault(x => x.email == Email);
+            if (user != null)
+            {
+                // Generate a random 6-character alphanumeric password
+                string newPassword = Guid.NewGuid().ToString().Substring(0, 6).ToUpper();
+
+                // Update the user's password in the database
+                user.password = newPassword;
+                db.SaveChanges();
+
+                ViewBag.Success = true;
+                ViewBag.NewPassword = newPassword;
+                return View();
+            }
+
+            ViewBag.Message = "Email address not found.";
             return View();
         }
     }
