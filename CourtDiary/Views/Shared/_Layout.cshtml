@@ -408,6 +408,19 @@
           })
         })
     </script>
+    <script>
+        $(document).ready(function(){
+            // Global search function for all tables
+            $('input[placeholder="Search"]').on('keyup', function() {
+                var value = $(this).val().toLowerCase();
+                // Find all table rows in the current page and filter them
+                $("table tbody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+
     @RenderSection("Scripts", required: false)
 
 </body>
