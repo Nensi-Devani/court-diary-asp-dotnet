@@ -15,12 +15,15 @@ namespace CourtDiary.Controllers
             var today = DateTime.Today;
 
             ViewBag.TotalActiveCases = db.Cases.Count(c => c.status == "Active");
+            ViewBag.TotalCases = db.Cases.Count();
             
             // For Entity Framework 6 / SQL Server, we might need EntityFunctions or DbFunctions
             // But since this is likely ASP.NET Core with EF Core, we can use Date property
             ViewBag.TodayHearings = db.Hearings.AsEnumerable().Count(h => h.hearing_date.HasValue && h.hearing_date.Value.Date == today);
+            ViewBag.TotalHearings = db.Hearings.Count();
             ViewBag.TodayMeetings = db.Meetings.AsEnumerable().Count(m => m.EventDate.Date == today);
-            ViewBag.PendingPayments = db.Hearings.Count(h => h.payment_status == "Pending");
+            var pendingAmount = db.Hearings.Where(h => h.payment_status == "Pending" || h.payment_status == "Unpaid").Sum(h => (decimal?)h.fee_amount) ?? 0;
+            ViewBag.PendingPayments = $"${pendingAmount:0.00}";
 
             var recentCases = db.Cases
                 .Include(c => c.Case_Parties)

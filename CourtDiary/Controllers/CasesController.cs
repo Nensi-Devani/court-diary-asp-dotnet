@@ -317,7 +317,8 @@ namespace CourtDiary.Controllers
         public IActionResult Create(Case caseObj, int? client_id, List<IFormFile> uploadedFiles, UploadCategory docCategory,
             string oppPartyName, string oppPartyNotes, IFormFile oppPartyAvatarFile,
             string oppLawyerName, string oppLawyerNotes, IFormFile oppLawyerAvatarFile,
-            DateTime? firstHearingDate, DateTime? nextHearingDate, DateTime? previousHearingDate)
+            DateTime? firstHearingDate, DateTime? nextHearingDate, DateTime? previousHearingDate,
+            decimal? fee_amount, string payment_status)
         {
             caseObj.client_id = client_id;
             caseObj.user_id = 1;
@@ -413,7 +414,7 @@ namespace CourtDiary.Controllers
                     });
                 }
 
-                if (firstHearingDate.HasValue || nextHearingDate.HasValue || previousHearingDate.HasValue)
+                if (firstHearingDate.HasValue || nextHearingDate.HasValue || previousHearingDate.HasValue || fee_amount.HasValue || !string.IsNullOrEmpty(payment_status))
                 {
                     _context.Hearings.Add(new Hearing
                     {
@@ -421,7 +422,10 @@ namespace CourtDiary.Controllers
                         hearing_date = firstHearingDate,
                         next_hearing_date = nextHearingDate,
                         notes = "Initial hearing dates",
-                        status = "Scheduled"
+                        status = "Scheduled",
+                        fee_amount = fee_amount,
+                        payment_status = payment_status,
+                        payment_date = payment_status == "Paid" ? DateTime.Now : (DateTime?)null
                     });
                 }
 

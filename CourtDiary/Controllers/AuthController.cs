@@ -1,4 +1,4 @@
-﻿//using Microsoft.AspNetCore.Mvc;
+//using Microsoft.AspNetCore.Mvc;
 //using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 //namespace CourtDiary.Controllers
@@ -176,7 +176,7 @@ namespace CourtDiary.Controllers
                     HttpContext.Session.SetString("UserRole", "Admin");
 
                     // FIXED: Admin goes to Admin Dashboard
-                    return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
+                    return RedirectToAction("Index", "AdminDashboard");
                 }
                 else
                 {
